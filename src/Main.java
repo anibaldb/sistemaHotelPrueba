@@ -40,6 +40,7 @@ public class Main {
             System.out.println("1- Login");
             System.out.println("2- Registrar Nuevo Usuario");
             System.out.println("0- Salir\n");
+            System.out.println("hola");
             System.out.println("Ingrese opcion: ");
             opcion= teclado.nextInt();
 
