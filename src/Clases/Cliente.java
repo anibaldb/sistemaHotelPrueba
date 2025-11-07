@@ -1,0 +1,157 @@
+package Clases;
+
+import Interfaces.MetodosUsuarios;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+public class Cliente extends Usuario implements MetodosUsuarios{
+    List<Reserva> reservasTomadas;
+
+    public Cliente(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) {
+        super(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
+        this.reservasTomadas = new ArrayList<>();
+    }
+
+
+
+
+    public void agregarReservaTomada(Reserva reserva) {
+
+        reservasTomadas.add(reserva);
+
+
+    }
+
+    @Override
+    public String getTipoUsuario() {
+        return "Pasajero";
+    }
+
+
+
+    public String mostrarReservasTomadas(){
+        String rta="";
+        for(Reserva r: reservasTomadas){
+            rta+=r.toString()+"\n";
+        }
+        return rta;
+    }
+
+    @Override
+    public void mostrarMenu(Hotel hotel) {
+        Scanner teclado=new Scanner(System.in);
+        int opcion;
+
+        do{
+            System.out.println("Menu:\n");
+            System.out.println("1- Crear Reserva\n");
+            System.out.println("2- Ver Historial reservas\n");
+            System.out.println("0- Salir\n");
+            System.out.println("Ingrese opcion: ");
+            opcion= teclado.nextInt();
+            teclado.nextLine();
+
+            switch (opcion){
+                case 1->{
+
+                    crearReserva(hotel);
+
+                }
+                case 2->{
+
+                    System.out.println(mostrarReservasTomadas());
+
+                }
+                case 0->{
+                    System.out.println("Cerrando sesion...");
+                }
+            }
+
+        }while (opcion!=0);
+
+
+
+    }
+
+
+    public void crearReserva(Hotel hotel) {
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.println("Creando reserva para el cliente logueado: " + getNombre());
+
+
+        System.out.print("Ingrese fecha de entrada (AAAA-MM-DD): ");
+        LocalDate entrada = LocalDate.parse(teclado.nextLine());
+
+        System.out.print("Ingrese fecha de salida (AAAA-MM-DD): ");
+        LocalDate salida = LocalDate.parse(teclado.nextLine());
+
+        if (!salida.isAfter(entrada)) {
+            System.out.println("La fecha de salida debe ser posterior a la fecha de entrada.");
+            return;
+        }
+
+
+        List<Habitacion> disponibles = new ArrayList<>();
+
+        System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
+
+        for (Habitacion h : hotel.getHabitaciones()) {
+            boolean libre = true;
+
+            for (Reserva r : hotel.getReservas()) {
+                if (r.getHabitacion().equals(h)) {
+                    boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) ||
+                            entrada.isAfter(r.getFechaEgreso().minusDays(1)));
+                    if (seCruzan) {
+                        libre = false;
+                        break;
+                    }
+                }
+            }
+
+            if (libre) {
+                disponibles.add(h);
+                System.out.println(h);
+            }
+        }
+
+        if (disponibles.isEmpty()) {
+            System.out.println("No hay habitaciones disponibles para esas fechas.");
+            return;
+        }
+
+        System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
+        String idSeleccionado = teclado.nextLine();
+
+        Habitacion seleccionada = null;
+        for (Habitacion h : disponibles) {
+            if (h.getId().equalsIgnoreCase(idSeleccionado)) {
+                seleccionada = h;
+                break;
+            }
+        }
+
+        if (seleccionada == null) {
+            System.out.println("El ID ingresado no corresponde a ninguna habitación disponible.");
+            return;
+        }
+
+
+        Reserva nueva = new Reserva(this, seleccionada, entrada, salida);
+        hotel.getReservas().add(nueva);
+        this.agregarReservaTomada(nueva);
+
+        System.out.println("\nReserva creada exitosamente!");
+        System.out.println("Desde " + entrada + " hasta " + salida);
+        System.out.println("Habitación: " + seleccionada.getId() + " - " + seleccionada.getTipo());
+        System.out.println("Cliente: " + getNombre());
+        System.out.println("Cantidad noches: "+nueva.getCantNoches());
+        System.out.println("Monto: $"+nueva.getPrecioReserva());
+    }
+}
+
