@@ -36,9 +36,9 @@ public class Administrador extends Usuario {
             System.out.println("1- Crear cliente");
             System.out.println("2- Crear Recepcionista");
             System.out.println("3- Crear habitacion");
-            System.out.println("3- Listar usuarios");
-            System.out.println("3- Listar habitaciones");
-            System.out.println("4- Realizar Backup");
+            System.out.println("4- Listar usuarios");
+            System.out.println("5- Listar habitaciones");
+            System.out.println("6- Realizar Backup");
             System.out.println("Ingrese opcion: (0 para salir del sistema) ");
 
             opcion= teclado.nextInt();
