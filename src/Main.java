@@ -104,6 +104,8 @@ public class Main {
         }while(opcion!=0);
 
 
+        System.out.println("Sistema Hotel\n");
 
     }
+
 }
