@@ -180,7 +180,7 @@ public class Administrador extends Usuario {
     }
 
     public void  mostrarUsuarios(Hotel hotel){
-      hotel.MostrarUsuarios();
+      hotel.mostrarUsuarios();
     }
 
     public void  mostrarHabitaciones(Hotel hotel){
