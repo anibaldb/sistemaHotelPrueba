@@ -13,15 +13,15 @@ import java.util.Scanner;
 public class Hotel {
 
     private String nombre;
-    private List<Habitacion> habitaciones;
-    private List<Reserva> reservas;
+    private ClaseGenerica<Habitacion> habitaciones;
+    private ClaseGenerica<Reserva> reservas;
     private SistemaUsuarios sistemaUsuarios;
 
 
     public Hotel(String nombre) {
         this.nombre=nombre;
-        this.habitaciones = new ArrayList<>();
-        this.reservas = new ArrayList<>();
+        this.habitaciones = new ClaseGenerica<>();
+        this.reservas = new ClaseGenerica<>();
         this.sistemaUsuarios=new SistemaUsuarios();
     }
 
@@ -33,13 +33,19 @@ public class Hotel {
 
     public String agregarHabitacion(String id,TipoHabitacion tipo, double precioXNoche ) throws ExceptionHabitacionDuplicada {
 
-        for(Habitacion h: habitaciones){
+        for(Habitacion h: habitaciones.getElementos()){
             if(h.getId().equalsIgnoreCase(id)){
                 throw new ExceptionHabitacionDuplicada("La habitacion ya existe...") ;
             }
         }
         Habitacion habitacion=new Habitacion(id,tipo,precioXNoche);
-        habitaciones.add(habitacion);
+        try {
+            habitaciones.agregar(habitacion);
+        }catch (Exception e){
+            e.getMessage();
+        }
+
+        
 
         return "Habitacion agregada correctamente";
     }

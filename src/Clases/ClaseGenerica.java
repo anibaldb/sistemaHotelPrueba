@@ -1,18 +1,42 @@
 package Clases;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClaseGenerica <T>{
-    private ArrayList <T> lista = new ArrayList<>();
+    private List<T> elementos;
 
 
-    public void Agregar(T objeto) {
-        lista.add(objeto);
+    public ClaseGenerica() {
+        this.elementos = new ArrayList<>();
     }
 
-    public void Recorrer(T objeto) {
-        for (T obj : lista) {
+    public List<T> getElementos() {
+        return elementos;
+    }
+
+    public void setElementos(List<T> elementos) {
+        this.elementos = elementos;
+    }
+
+    public void agregar(T objeto) throws Exception {
+        if (elementos.contains(objeto)) {
+            throw new Exception("El elemnto ya existe en la base de datos");
+        }
+
+        elementos.add(objeto);
+    }
+
+
+    public boolean eliminarElemento( T objeto)  {
+        return elementos.remove(objeto);
+    }
+
+    public void recorrer() {
+        for (T obj : elementos) {
             System.out.println(obj.toString());
         }
     }
+
+
 }
