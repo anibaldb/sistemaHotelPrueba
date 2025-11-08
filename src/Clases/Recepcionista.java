@@ -29,8 +29,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         SistemaUsuarios sistemaUsuarios = new SistemaUsuarios();
         Scanner teclado = new Scanner(System.in);
         int opcion;
-        String str="";
+
         do{
+            String str="";
             str += "Menu:\n";
             str += "1 - Agregar Cliente\n";
             str += "2 - Crear Reserva\n";
@@ -364,11 +365,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         System.out.print("Ingrese número de reserva para realizar CHECK-IN: ");
         int nroReserva = teclado.nextInt();
         teclado.nextLine();
-        for(Reserva r : hotel.getReservas()) {
-            if (!(r.getId() == nroReserva)) {
-                System.out.println("El nro de reserva no existe...");
-            }
-        }
+
 
         boolean encontrada = false;
 
@@ -400,11 +397,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         System.out.print("Ingrese número de reserva para realizar CHECK-OUT: ");
         int nroReserva = teclado.nextInt();
         teclado.nextLine();
-        for(Reserva r : hotel.getReservas()) {
-            if (!(r.getId() == nroReserva)) {
-                System.out.println("El nro de reserva no existe...");
-            }
-        }
+
 
         boolean encontrada = false;
 
