@@ -33,7 +33,7 @@ public class Hotel {
         habitaciones.recorrer();
     }
 
-    public void MostrarUsuarios(){
+    public void mostrarUsuarios(){
         sistemaUsuarios.listarUsuarios();
     }
 
