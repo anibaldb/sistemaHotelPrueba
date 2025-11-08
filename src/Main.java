@@ -1,12 +1,11 @@
-import Clases.Cliente;
 import Clases.Hotel;
-import Clases.SistemaUsuarios;
 import Clases.Usuario;
 import Enums.TipoHabitacion;
 import Exceptions.ExceptionCredencialesInvalidas;
 import Exceptions.ExceptionHabitacionDuplicada;
 import Exceptions.ExceptionUsuarioDuplicado;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -44,7 +43,7 @@ public class Main {
 
 
         Scanner teclado=new Scanner(System.in);
-        int opcion;
+        int opcion = -1;
 
         do{
             System.out.println("Sistema Hotel\n");
@@ -52,18 +51,19 @@ public class Main {
             System.out.println("2- Registrar Nuevo Usuario");
             System.out.println("0- Salir\n");
 
-            System.out.println("Ingrese opcion: ");
-            opcion= teclado.nextInt();
+            try {
+                System.out.println("Ingrese opcion: ");
+                opcion = teclado.nextInt();
 
-            switch (opcion){
-                case 1-> {
+            switch (opcion) {
+                case 1 -> {
                     teclado.nextLine();
                     System.out.println("Ingrese eMail: ");
 
-                    String mail=teclado.nextLine();
+                    String mail = teclado.nextLine();
                     System.out.println("Ingrese contraseña:");
 
-                    String contra= teclado.nextLine();
+                    String contra = teclado.nextLine();
 
                     try {
                         Usuario u = miHotel.getSistemaUsuarios().login(mail, contra);
@@ -71,43 +71,49 @@ public class Main {
                             System.out.println("Bienvenido " + u.getNombre() + " !");
                             u.mostrarMenu(miHotel);
                         }
-                    }catch (ExceptionCredencialesInvalidas e){
+                    } catch (ExceptionCredencialesInvalidas e) {
                         System.out.println(e.getMessage());
                     }
 
                 }
-                case 2->{
+                case 2 -> {
 
                     teclado.nextLine();
 
                     System.out.println("Ingrese nombre: ");
-                    String nombre= teclado.nextLine();
+                    String nombre = teclado.nextLine();
 
                     System.out.println("Ingrese dni:");
-                    int dni= teclado.nextInt();
+                    int dni = teclado.nextInt();
                     teclado.nextLine();
 
                     System.out.println("Ingrese origen: ");
-                    String origen= teclado.nextLine();
+                    String origen = teclado.nextLine();
 
                     System.out.println("Ingrese direccion Origen: ");
-                    String direccion= teclado.nextLine();
+                    String direccion = teclado.nextLine();
 
                     System.out.println("Ingrese Mail: ");
-                    String email= teclado.nextLine();
+                    String email = teclado.nextLine();
 
                     System.out.println("Ingrese contraseña: ");
-                    String contra= teclado.nextLine();
+                    String contra = teclado.nextLine();
 
-                    try{
 
-                        System.out.println(miHotel.getSistemaUsuarios().registrarCliente(nombre,dni,origen,direccion,email,contra));
-                    }catch (ExceptionUsuarioDuplicado e){
+                    try {
+
+                        System.out.println(miHotel.getSistemaUsuarios().registrarCliente(nombre, dni, origen, direccion, email, contra));
+                    } catch (ExceptionUsuarioDuplicado e) {
                         System.out.println(e.getMessage());
                     }
 
 
                 }
+            }
+
+            }catch (InputMismatchException e){
+                System.out.println("Error: Debe ingresar solo numeros, no letras");
+                teclado.nextLine(); //PARA EVITAR CICLO INFINITO
             }
 
 
