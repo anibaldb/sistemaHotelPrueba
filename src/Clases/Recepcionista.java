@@ -1,5 +1,6 @@
 package Clases;
 
+import Enums.EstadoHabitacion;
 import Exceptions.ExceptionUsuarioDuplicado;
 import Exceptions.FechaInvalidaException;
 import Interfaces.MetodosUsuarios;
@@ -299,5 +300,41 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             System.out.println("No hay habitaciones disponibles para esas fechas.");
             return;
         }
+    }
+
+    public void cambiarEstadoHabitacion (Hotel hotel) {
+        Scanner teclado = new Scanner(System.in);
+
+
+        StringBuilder sb=new StringBuilder();
+        for (Habitacion h : hotel.getHabitaciones()) {
+            sb.append("Habitacion: "+h.getId()+" Estado: "+h.getEstado()+"\n");
+            if (h.getEstado()==EstadoHabitacion.FUERA_DE_SERVICIO){
+                sb.append(h.getMotivoFueraServicio());
+            }
+        }
+        System.out.println(sb);
+        System.out.println("Ingrese ID de habitacion a cambiar estado: ");
+        String  opcion = teclado.nextLine();
+        for (Habitacion h : hotel.getHabitaciones()) {
+
+            if (opcion.equalsIgnoreCase(h.getId())) {
+                System.out.println("Elija estado: 1 - Disponible, 2 - Desinfeccion, 3 - Fuera de servicio");
+                int opcion2 = teclado.nextInt();
+                switch (opcion2) {
+                    case 1->{ h.setEstado(EstadoHabitacion.DISPONIBLE); }
+                    case 2->{ h.setEstado(EstadoHabitacion.DESINFECCION);}
+                    case 3->{
+                        System.out.println("Ingrese motivo de fuera de servicio: ");
+                        String motivo=teclado.nextLine();
+                        h.setEstado(EstadoHabitacion.FUERA_DE_SERVICIO);
+                        h.setearMotivoFueraServicio(motivo);
+                    }
+                }
+            }
+        }
+
+
+
     }
 }
