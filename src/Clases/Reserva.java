@@ -1,5 +1,7 @@
 package Clases;
 
+import Enums.EstadoReserva;
+
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
 import java.time.temporal.ChronoUnit;
@@ -13,7 +15,7 @@ public class Reserva {
     private LocalDate fechaEgreso;
     private long cantNoches;
     private double precioReserva;
-    private boolean estadoReserva;
+    private EstadoReserva estadoReserva;
 
     public static int nextId=1;
 
@@ -26,7 +28,7 @@ public class Reserva {
         this.fechaEgreso = fechaEgreso;
         this.cantNoches = ChronoUnit.DAYS.between(fechaInicio,fechaEgreso);
         this.precioReserva = cantNoches*habitacion.getPrecioXNoche();
-        this.estadoReserva = false;
+        this.estadoReserva = EstadoReserva.PENDIENTE;
     }
 
     public Habitacion getHabitacion() {
@@ -77,14 +79,13 @@ public class Reserva {
         this.precioReserva = precioReserva;
     }
 
-    public boolean isEstadoReserva() {
+    public EstadoReserva getEstadoReserva() {
         return estadoReserva;
     }
 
-    public void setEstadoReserva(boolean estadoReserva) {
+    public void setEstadoReserva(EstadoReserva estadoReserva) {
         this.estadoReserva = estadoReserva;
     }
-
 
     @Override
     public String toString() {
