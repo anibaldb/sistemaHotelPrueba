@@ -16,7 +16,7 @@ public class Administrador extends Usuario {
 
 
 
-    public void realizarBackup(){}
+
 
     @Override
     public String getTipoUsuario() {
@@ -33,12 +33,13 @@ public class Administrador extends Usuario {
 
         do{
             System.out.println("Menu:");
-            System.out.println("1- Crear cliente");
-            System.out.println("2- Crear Recepcionista");
-            System.out.println("3- Crear habitacion");
-            System.out.println("4- Listar usuarios");
-            System.out.println("5- Listar habitaciones");
-            System.out.println("6- Realizar Backup");
+            System.out.println("1 - Crear cliente");
+            System.out.println("2 - Crear Recepcionista");
+            System.out.println("3 - Crear habitacion");
+            System.out.println("4 - Listar usuarios");
+            System.out.println("5 - Listar habitaciones");
+            System.out.println("6 - Realizar Backup");
+            System.out.println("0 - Salir");
             System.out.println("Ingrese opcion: (0 para salir del sistema) ");
 
             opcion= teclado.nextInt();
@@ -148,9 +149,22 @@ public class Administrador extends Usuario {
                     break;
                 }
                 case 4: {
+                    System.out.println(mostrarUsuarios(hotel));
+
 
                     break;
                 }
+
+                case 5:{
+                    System.out.println(mostrarHabitaciones(hotel));
+                }
+                case 6:{
+                    realizarBackup(hotel);
+
+                }
+                case 0: {
+                    System.out.println("Saliendo...");}
+
                 default: {
                     System.out.println("Opcion invalida");
 
@@ -163,15 +177,31 @@ public class Administrador extends Usuario {
         }while(opcion!=0);
 
 
-        String str="";
-
-        str+="Menu:\n";
-        str+="1- Crear RECEPCIONISTA\n";
-        str+="2- Crear HABITACION\n";
-        str+="3- Realizar Backup\n";
-
-
-
-        System.out.println(str);
     }
+
+    public String  mostrarUsuarios(Hotel hotel){
+        StringBuilder sb=new StringBuilder();
+        for(Usuario u: hotel.getSistemaUsuarios().getUsuarios()){
+            sb.append(u.toString()).append("\n");
+
+        }
+
+        return sb.toString();
+    }
+
+    public String  mostrarHabitaciones(Hotel hotel){
+        StringBuilder sb=new StringBuilder();
+        for(Habitacion h: hotel.getHabitaciones()){
+            sb.append(h.toString()).append("\n");
+
+        }
+
+        return sb.toString();
+    }
+
+
+    public void realizarBackup(Hotel hotel){}
+
+
+
 }
