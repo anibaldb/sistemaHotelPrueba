@@ -71,7 +71,7 @@ public abstract class Usuario {
                 "eMail='" + eMail + '\''+
                 "Tipo: "+getTipoUsuario().toString();
     }
-    public abstract void mostrarMenu(Hotel hotel);
+    public abstract void  mostrarMenu(Hotel hotel);
 
     public abstract String getTipoUsuario();
 

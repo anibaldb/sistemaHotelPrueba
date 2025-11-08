@@ -18,7 +18,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     }
 
 
-    public String getTipoUsuario() {
+    public String  getTipoUsuario() {
         return "Recepcionista";
     }
 
@@ -29,90 +29,91 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         SistemaUsuarios sistemaUsuarios = new SistemaUsuarios();
         Scanner teclado = new Scanner(System.in);
         int opcion;
+        String str="";
+        do{
+            str += "Menu:\n";
+            str += "1 - Agregar Cliente\n";
+            str += "2 - Crear Reserva\n";
+            str += "3 - Ver habitaciones disponibles\n";
+            str += "4 - Ver estado habitaciones \n";
+            str += "5 - Realizar CHECK-IN\n";
+            str += "6 - Realizar CHECK-OUT\n";
+            str += "0 - Salir\n\n";
+            str += "Ingrese opcion: ";
+            System.out.println(str);
+            opcion = teclado.nextInt();
+            teclado.nextLine();
 
-        String str = "";
+            switch (opcion) {
+                case 1 -> {
+                    System.out.print("Ingrese el DNI del cliente: ");
+                    int dni = teclado.nextInt();
+                    teclado.nextLine();
 
-        str += "Menu:\n";
-        str += "1 - Agregar Cliente\n";
-        str += "2 - Crear Reserva\n";
-        str += "3 - Ver habitaciones disponibles\n";
-        str += "4 - Ver estado habitaciones \n";
-        str += "5 - Realizar CHECK-IN\n";
-        str += "6 - Realizar CHECK-OUT\n";
-        str += "0 - Salir\n\n";
-        str += "Ingrese opcion: ";
-        opcion = teclado.nextInt();
-        teclado.nextLine();
+                    Cliente cliente = sistemaUsuarios.buscarPorDni(dni);
 
-        switch (opcion) {
-            case 1 -> {
-                System.out.print("Ingrese el DNI del cliente: ");
-                int dni = teclado.nextInt();
-                teclado.nextLine();
-
-                Cliente cliente = sistemaUsuarios.buscarPorDni(dni);
-
-                if (cliente == null) {
-                    System.out.println("No se encontró cliente con ese DNI.");
-                    System.out.print("¿Ingresar datos de cliente nuevo: \n");
-
-
-                    System.out.print("Nombre: ");
-                    String nombre = teclado.nextLine();
+                    if (cliente == null) {
+                        System.out.println("No se encontró cliente con ese DNI.");
+                        System.out.print("¿Ingresar datos de cliente nuevo: \n");
 
 
-                    System.out.print("Origen: ");
-                    String origen = teclado.nextLine();
+                        System.out.print("Nombre: ");
+                        String nombre = teclado.nextLine();
 
-                    System.out.print("Dirección: ");
-                    String direccion = teclado.nextLine();
 
-                    System.out.print("Email: ");
-                    String email = teclado.nextLine();
+                        System.out.print("Origen: ");
+                        String origen = teclado.nextLine();
 
-                    System.out.print("Contraseña: ");
-                    String contra = teclado.nextLine();
+                        System.out.print("Dirección: ");
+                        String direccion = teclado.nextLine();
 
-                    try {
-                        sistemaUsuarios.registrarCliente(nombre, dni, origen, direccion, email, contra);
+                        System.out.print("Email: ");
+                        String email = teclado.nextLine();
 
-                        System.out.println("Cliente registrado exitosamente.");
-                    } catch (ExceptionUsuarioDuplicado e) {
-                        System.out.println(e.getMessage());
-                        return;
+                        System.out.print("Contraseña: ");
+                        String contra = teclado.nextLine();
+
+                        try {
+                            sistemaUsuarios.registrarCliente(nombre, dni, origen, direccion, email, contra);
+
+                            System.out.println("Cliente registrado exitosamente.");
+                        } catch (ExceptionUsuarioDuplicado e) {
+                            System.out.println(e.getMessage());
+
+                        }
+
                     }
+                }
+
+
+                case 2 -> {
+                    crearReserva(hotel);
 
                 }
-            }
+                case 3 -> {
+                    mostrarHabitacionesDisponibles(hotel);
+
+                }
+                case 4 -> {
+                    mostrarHabitacionesEstado(hotel);
+
+                }
+                case 5 -> {
+                    realizarChkIn(hotel);
 
 
-            case 2 -> {
-                crearReserva(hotel);
+                }
+                case 6 -> {
+                    realizarChkOut(hotel);
 
-            }
-            case 3 -> {
-                mostrarHabitacionesDisponibles(hotel);
-
-            }
-            case 4 -> {
-                mostrarHabitacionesEstado(hotel);
-
-            }
-            case 5 -> {
-                realizarChkIn(hotel);
-
-
-            }
-            case 6 -> {
-                realizarChkOut(hotel);
+                }
+                case 0->{
+                    System.out.println("Cerrando sesion...");
+                }
 
             }
 
-        }
-
-
-        System.out.println(str);
-
+        }while(opcion!=0);
 
     }
 
@@ -362,6 +363,12 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         System.out.print("Ingrese número de reserva para realizar CHECK-IN: ");
         int nroReserva = teclado.nextInt();
+        teclado.nextLine();
+        for(Reserva r : hotel.getReservas()) {
+            if (!(r.getId() == nroReserva)) {
+                System.out.println("El nro de reserva no existe...");
+            }
+        }
 
         boolean encontrada = false;
 
@@ -392,6 +399,12 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         System.out.print("Ingrese número de reserva para realizar CHECK-OUT: ");
         int nroReserva = teclado.nextInt();
+        teclado.nextLine();
+        for(Reserva r : hotel.getReservas()) {
+            if (!(r.getId() == nroReserva)) {
+                System.out.println("El nro de reserva no existe...");
+            }
+        }
 
         boolean encontrada = false;
 
