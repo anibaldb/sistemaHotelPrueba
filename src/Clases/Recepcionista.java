@@ -3,7 +3,6 @@ package Clases;
 import Enums.EstadoHabitacion;
 import Enums.EstadoReserva;
 import Exceptions.ExceptionUsuarioDuplicado;
-import Exceptions.FechaInvalidaException;
 import Interfaces.MetodosUsuarios;
 
 import java.time.LocalDate;
