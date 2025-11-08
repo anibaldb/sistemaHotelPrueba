@@ -1,5 +1,6 @@
 package Clases;
 
+import Enums.EstadoReserva;
 import Interfaces.MetodosUsuarios;
 
 import java.time.LocalDate;
@@ -102,6 +103,10 @@ public class Cliente extends Usuario implements MetodosUsuarios{
             boolean libre = true;
 
             for (Reserva r : hotel.getReservas()) {
+                if (r.getEstadoReserva() != EstadoReserva.PENDIENTE) {
+                    continue;
+                }
+
                 if (r.getHabitacion().equals(h)) {
                     boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) ||
                             entrada.isAfter(r.getFechaEgreso().minusDays(1)));
