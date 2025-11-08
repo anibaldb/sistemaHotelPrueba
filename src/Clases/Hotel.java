@@ -45,7 +45,7 @@ public class Hotel {
             e.getMessage();
         }
 
-        
+
 
         return "Habitacion agregada correctamente";
     }
@@ -59,19 +59,19 @@ public class Hotel {
         this.nombre = nombre;
     }
 
-    public List<Habitacion> getHabitaciones() {
+    public ClaseGenerica<Habitacion> getHabitaciones() {
         return habitaciones;
     }
 
-    public void setHabitaciones(List<Habitacion> habitaciones) {
+    public void setHabitaciones(ClaseGenerica<Habitacion> habitaciones) {
         this.habitaciones = habitaciones;
     }
 
-    public List<Reserva> getReservas() {
+    public ClaseGenerica<Reserva> getReservas() {
         return reservas;
     }
 
-    public void setReservas(List<Reserva> reservas) {
+    public void setReservas(ClaseGenerica<Reserva> reservas) {
         this.reservas = reservas;
     }
 

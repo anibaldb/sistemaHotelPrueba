@@ -192,10 +192,10 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
 
-        for (Habitacion h : hotel.getHabitaciones()) {
+        for (Habitacion h : hotel.getHabitaciones().getElementos()) {
             boolean libre = true;
 
-            for (Reserva r : hotel.getReservas()) {
+            for (Reserva r : hotel.getReservas().getElementos()) {
                 if (r.getEstadoReserva() != EstadoReserva.PENDIENTE) {
                     continue;
                 }
@@ -239,7 +239,13 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
 
         Reserva nueva = new Reserva(cliente, seleccionada, entrada, salida);
-        hotel.getReservas().add(nueva);
+
+        try{
+            hotel.getReservas().agregar(nueva);
+        }catch(Exception e){
+            e.getMessage();
+        }
+
         cliente.agregarReservaTomada(nueva);
 
         System.out.println("\nReserva creada exitosamente!");
@@ -283,10 +289,10 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
 
-        for (Habitacion h : hotel.getHabitaciones()) {
+        for (Habitacion h : hotel.getHabitaciones().getElementos()) {
             boolean libre = true;
 
-            for (Reserva r : hotel.getReservas()) {
+            for (Reserva r : hotel.getReservas().getElementos()) {
                 if (r.getHabitacion().equals(h)) {
                     boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) ||
                             entrada.isAfter(r.getFechaEgreso().minusDays(1)));
@@ -314,7 +320,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         StringBuilder sb = new StringBuilder();
         sb.append("=== Lista de Habitaciones ===\n");
-        for (Habitacion h : hotel.getHabitaciones()) {
+        for (Habitacion h : hotel.getHabitaciones().getElementos()) {
             sb.append("Habitación: ").append(h.getId())
                     .append(" | Estado: ").append(h.getEstado());
             if (h.getEstado() == EstadoHabitacion.FUERA_DE_SERVICIO) {
@@ -333,7 +339,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             String opcion = teclado.nextLine();
             boolean encontrada = false;
 
-            for (Habitacion h : hotel.getHabitaciones()) {
+            for (Habitacion h : hotel.getHabitaciones().getElementos()) {
                 if (opcion.equalsIgnoreCase(h.getId())) {
                     encontrada = true;
                     System.out.println("Elija nuevo estado:");
@@ -386,14 +392,14 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         if (cliente != null) {
 
-            for (Reserva r : hotel.getReservas()) {
+            for (Reserva r : hotel.getReservas().getElementos()) {
                 if (r.getEstadoReserva()==EstadoReserva.PENDIENTE && r.getCliente().getDni() == nroDni) {
                     System.out.println(r.toString());
                 }
             }
             System.out.println("Ingrese el nro de reserva a cancelar: ");
             int nroReserva = teclado.nextInt();
-            for (Reserva r : hotel.getReservas()) {
+            for (Reserva r : hotel.getReservas().getElementos()) {
                 if (r.getId() == nroReserva) {
 
                     if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
@@ -437,7 +443,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         boolean encontrada = false;
 
-        for (Reserva r : hotel.getReservas()) {
+        for (Reserva r : hotel.getReservas().getElementos()) {
             if (r.getId() == nroReserva) {
                 encontrada = true;
                 if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
@@ -466,7 +472,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         boolean encontrada = false;
 
-        for (Reserva r : hotel.getReservas()) {
+        for (Reserva r : hotel.getReservas().getElementos()) {
             if (r.getId() == nroReserva) {
                 encontrada = true;
                 if (r.getEstadoReserva() == EstadoReserva.ACTIVA) {
@@ -497,7 +503,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         boolean encontrada = false;
 
-        for (Reserva r : hotel.getReservas()) {
+        for (Reserva r : hotel.getReservas().getElementos()) {
             if (r.getId() == nroReserva) {
                 encontrada = true;
                 if (r.getEstadoReserva() == EstadoReserva.TERMINADA) {
