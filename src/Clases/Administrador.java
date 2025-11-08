@@ -191,7 +191,7 @@ public class Administrador extends Usuario {
 
     public String  mostrarHabitaciones(Hotel hotel){
         StringBuilder sb=new StringBuilder();
-        for(Habitacion h: hotel.getHabitaciones()){
+        for(Habitacion h: hotel.getHabitaciones().getElementos()){
             sb.append(h.toString()).append("\n");
 
         }
