@@ -29,6 +29,14 @@ public class Hotel {
         return sistemaUsuarios;
     }
 
+    public void mostrarHabitaciones(){
+        habitaciones.recorrer();
+    }
+
+    public void MostrarUsuarios(){
+        sistemaUsuarios.listarUsuarios();
+    }
+
 
 
     public String agregarHabitacion(String id,TipoHabitacion tipo, double precioXNoche ) throws ExceptionHabitacionDuplicada {
