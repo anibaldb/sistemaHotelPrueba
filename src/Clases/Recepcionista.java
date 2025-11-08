@@ -38,6 +38,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             str += "4 - Ver estado habitaciones \n";
             str += "5 - Realizar CHECK-IN\n";
             str += "6 - Realizar CHECK-OUT\n";
+            str += "7 - Cancelar reserva\n";
             str += "0 - Salir\n\n";
             str += "Ingrese opcion: ";
             System.out.println(str);
@@ -106,6 +107,17 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                 case 6 -> {
                     realizarChkOut(hotel);
 
+                }
+                case 7 ->{
+                    System.out.println("Cancelar reserva por DNI (opcion 1) o por Id de reserva (opcion 2) ?");
+                    System.out.println("Ingrese opcion: ");
+                    int opcion2 = teclado.nextInt();
+                    teclado.nextLine();
+                    switch (opcion2) {
+                        case 1 -> {cancelarReservaPorDni(hotel);}
+                        case 2 -> {cancelarReservaPorId(hotel);}
+
+                    }
                 }
                 case 0->{
                     System.out.println("Cerrando sesion...");
@@ -356,6 +368,88 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
 
 
+    }
+
+    public void cancelarReservaPorDni(Hotel hotel) {
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Ingrese DNI del cliente para cancelar reserva: ");
+        int nroDni = teclado.nextInt();
+
+        teclado.nextLine();
+
+        Cliente cliente=hotel.getSistemaUsuarios().buscarPorDni(nroDni);
+
+        if (cliente != null) {
+
+            for (Reserva r : hotel.getReservas()) {
+                if (r.getEstadoReserva()==EstadoReserva.PENDIENTE && r.getCliente().getDni() == nroDni) {
+                    System.out.println(r.toString());
+                }
+            }
+            System.out.println("Ingrese el nro de reserva a cancelar: ");
+            int nroReserva = teclado.nextInt();
+            for (Reserva r : hotel.getReservas()) {
+                if (r.getId() == nroReserva) {
+
+                    if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
+                        System.out.println("La reserva ya está Cancelada.");
+
+                    } else {
+                        r.setEstadoReserva(EstadoReserva.CANCELADA);
+                        System.out.println("Reserva N° " + r.getId() + "Cancelada con exito...");
+                    }
+                    break;
+                }
+
+        }
+
+
+
+        }else {
+
+            System.out.println("No se encontró ningún cliente con el dni ingresado.");
+
+        }
+
+
+
+
+
+
+
+
+
+
+    }
+
+    public void cancelarReservaPorId(Hotel hotel) {
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Ingrese número de reserva a Cancelar: ");
+        int nroReserva = teclado.nextInt();
+        teclado.nextLine();
+
+
+        boolean encontrada = false;
+
+        for (Reserva r : hotel.getReservas()) {
+            if (r.getId() == nroReserva) {
+                encontrada = true;
+                if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
+                    System.out.println("La reserva ya está Cancelada.");
+
+                } else {
+                    r.setEstadoReserva(EstadoReserva.CANCELADA);
+                    System.out.println("Reserva N° " + r.getId() + "Cancelada con exito...");
+                }
+                break;
+            }
+        }
+
+        if (!encontrada) {
+            System.out.println("No se encontró ninguna reserva con el número ingresado.");
+        }
     }
 
     public void realizarChkIn(Hotel hotel) {
