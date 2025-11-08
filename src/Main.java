@@ -16,13 +16,24 @@ public class Main {
         Hotel miHotel=new Hotel("Las Ostias");
 
         try{
-            miHotel.getSistemaUsuarios().registrarCliente("Anibal",29763522, "Argentina","Martinez 3340", "admin", "admin");
+            miHotel.getSistemaUsuarios().registrarCliente("Anibal",29763522, "Argentina","Martinez 3340", "cli", "cli");
+            miHotel.getSistemaUsuarios().registrarRecepcionista("Mabel",29040871,"Argentina","Martinez 3340", "recep", "recep");
+            miHotel.getSistemaUsuarios().registrarAdministrador("Carlos",29880648,"Cuba","Martinez 3340", "admin", "admin");
         }catch (ExceptionUsuarioDuplicado e){
             System.out.println(e.getMessage());
         }
 
         try {
-            miHotel.agregarHabitacion("1", TipoHabitacion.SIMPLE,10000);
+            miHotel.agregarHabitacion("1", TipoHabitacion.SIMPLE, 10000);
+            miHotel.agregarHabitacion("2", TipoHabitacion.SIMPLE, 10000);
+            miHotel.agregarHabitacion("3", TipoHabitacion.DOBLE, 15000);
+            miHotel.agregarHabitacion("4", TipoHabitacion.DOBLE, 15000);
+            miHotel.agregarHabitacion("5", TipoHabitacion.DOBLE, 20000);
+            miHotel.agregarHabitacion("6", TipoHabitacion.SIMPLE, 20000);
+            miHotel.agregarHabitacion("7", TipoHabitacion.SUITE, 30000);
+            miHotel.agregarHabitacion("8", TipoHabitacion.SUITE, 30000);
+            miHotel.agregarHabitacion("9", TipoHabitacion.SIMPLE, 10000);
+            miHotel.agregarHabitacion("10", TipoHabitacion.DOBLE, 15000);
 
         }catch (ExceptionHabitacionDuplicada e){
             e.getMessage();
