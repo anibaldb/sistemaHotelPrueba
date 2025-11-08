@@ -156,7 +156,7 @@ public class Administrador extends Usuario {
                 }
 
                 case 5:{
-                    System.out.println(mostrarHabitaciones(hotel));
+                    mostrarHabitaciones(hotel);
                 }
                 case 6:{
                     realizarBackup(hotel);
@@ -189,14 +189,8 @@ public class Administrador extends Usuario {
         return sb.toString();
     }
 
-    public String  mostrarHabitaciones(Hotel hotel){
-        StringBuilder sb=new StringBuilder();
-        for(Habitacion h: hotel.getHabitaciones()){
-            sb.append(h.toString()).append("\n");
-
-        }
-
-        return sb.toString();
+    public void  mostrarHabitaciones(Hotel hotel){
+        hotel.mostrarHabitaciones();
     }
 
 
