@@ -84,11 +84,9 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         System.out.println("Creando reserva para el cliente logueado: " + getNombre());
 
 
-        System.out.print("Ingrese fecha de entrada (AAAA-MM-DD): ");
-        LocalDate entrada = LocalDate.parse(teclado.nextLine());
+        LocalDate entrada = leerFecha("Ingrese fecha de entrada (AAAA-MM-DD): ");
+        LocalDate salida = leerFecha("Ingrese fecha de salida (AAAA-MM-DD): ");
 
-        System.out.print("Ingrese fecha de salida (AAAA-MM-DD): ");
-        LocalDate salida = LocalDate.parse(teclado.nextLine());
 
         if (!salida.isAfter(entrada)) {
             System.out.println("La fecha de salida debe ser posterior a la fecha de entrada.");
@@ -152,6 +150,26 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         System.out.println("Cliente: " + getNombre());
         System.out.println("Cantidad noches: "+nueva.getCantNoches());
         System.out.println("Monto: $"+nueva.getPrecioReserva());
+    }
+
+    private LocalDate leerFecha(String mensaje) {
+        Scanner teclado = new Scanner(System.in);
+        LocalDate fecha = null;
+        boolean fechaValida = false;
+
+        while (!fechaValida) {
+            System.out.print(mensaje);
+            String entrada = teclado.nextLine();
+
+            try {
+                fecha = LocalDate.parse(entrada);
+                fechaValida = true;
+            } catch (Exception e) {
+                System.out.println("Formato inválido. Ingrese la fecha en formato AAAA-MM-DD (por ejemplo: 2025-11-06).");
+            }
+        }
+
+        return fecha;
     }
 }
 

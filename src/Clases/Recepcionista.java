@@ -326,7 +326,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                     System.out.println("3 - Fuera de servicio");
 
                     int opcion2 = teclado.nextInt();
-                    teclado.nextLine(); // 🔹 Consumir el salto de línea pendiente
+                    teclado.nextLine();
 
                     switch (opcion2) {
                         case 1 -> h.setEstado(EstadoHabitacion.DISPONIBLE);
@@ -387,7 +387,6 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             System.out.println("No se encontró ninguna reserva con el número ingresado.");
         }
     }
-
 
     public void realizarChkOut(Hotel hotel) {
 
