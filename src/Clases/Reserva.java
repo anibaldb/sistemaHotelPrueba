@@ -31,6 +31,10 @@ public class Reserva {
         this.estadoReserva = EstadoReserva.PENDIENTE;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public Habitacion getHabitacion() {
         return habitacion;
     }
