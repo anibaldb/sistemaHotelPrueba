@@ -149,7 +149,7 @@ public class Administrador extends Usuario {
                     break;
                 }
                 case 4: {
-                    System.out.println(mostrarUsuarios(hotel));
+                    mostrarUsuarios(hotel);
 
 
                     break;
@@ -179,14 +179,8 @@ public class Administrador extends Usuario {
 
     }
 
-    public String  mostrarUsuarios(Hotel hotel){
-        StringBuilder sb=new StringBuilder();
-        for(Usuario u: hotel.getSistemaUsuarios().getUsuarios()){
-            sb.append(u.toString()).append("\n");
-
-        }
-
-        return sb.toString();
+    public void  mostrarUsuarios(Hotel hotel){
+      hotel.MostrarUsuarios();
     }
 
     public void  mostrarHabitaciones(Hotel hotel){
