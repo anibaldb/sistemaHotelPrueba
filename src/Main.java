@@ -15,9 +15,9 @@ public class Main {
         Hotel miHotel=new Hotel("Las Ostias");
 
         try{
-            miHotel.getSistemaUsuarios().registrarCliente("Anibal",29763522, "Argentina","Martinez 3340", "cli", "cli");
-            miHotel.getSistemaUsuarios().registrarRecepcionista("Mabel",29040871,"Argentina","Martinez 3340", "recep", "recep");
-            miHotel.getSistemaUsuarios().registrarAdministrador("Carlos",29880648,"Cuba","Martinez 3340", "admin", "admin");
+            miHotel.RegistrarCliente("Anibal",29763522, "Argentina","Martinez 3340", "cli", "cli");
+            miHotel.registrarRecepcionista("Mabel",29040871,"Argentina","Martinez 3340", "recep", "recep");
+            miHotel.RegistrarAdministrador("Carlos",29880648,"Cuba","Martinez 3340", "admin", "admin");
         }catch (ExceptionUsuarioDuplicado e){
             System.out.println(e.getMessage());
         }
@@ -66,7 +66,7 @@ public class Main {
                     String contra = teclado.nextLine();
 
                     try {
-                        Usuario u = miHotel.getSistemaUsuarios().login(mail, contra);
+                        Usuario u = miHotel.login(mail, contra);
                         if (u != null) {
                             System.out.println("Bienvenido " + u.getNombre() + " !");
                             u.mostrarMenu(miHotel);
@@ -102,7 +102,8 @@ public class Main {
 
                     try {
 
-                        System.out.println(miHotel.getSistemaUsuarios().registrarCliente(nombre, dni, origen, direccion, email, contra));
+                         String msg = miHotel.RegistrarCliente(nombre, dni, origen, direccion, email, contra);
+                        System.out.println(msg);
                     } catch (ExceptionUsuarioDuplicado e) {
                         System.out.println(e.getMessage());
                     }
