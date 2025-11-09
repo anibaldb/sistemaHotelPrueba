@@ -83,8 +83,21 @@ public class Main {
                     System.out.println("Ingrese nombre: ");
                     String nombre = teclado.nextLine();
 
-                    System.out.println("Ingrese dni:");
-                    int dni = teclado.nextInt();
+                    int dni = 0;
+                    boolean dniValido = false;
+
+                    while (!dniValido) {
+                        try {
+                            System.out.println("Ingrese dni:");
+                            dni = teclado.nextInt();
+                            dniValido = true;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Error: El DNI debe ser un número. Intente de nuevo");
+                            teclado.nextLine();
+                        }
+                    }
+
+
                     teclado.nextLine();
 
                     System.out.println("Ingrese origen: ");
