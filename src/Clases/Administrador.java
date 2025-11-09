@@ -157,10 +157,11 @@ public class Administrador extends Usuario {
 
                 case 5:{
                     mostrarHabitaciones(hotel);
+                    break;
                 }
                 case 6:{
                     realizarBackup(hotel);
-
+                    break;
                 }
                 case 0: {
                     System.out.println("Saliendo...");}
