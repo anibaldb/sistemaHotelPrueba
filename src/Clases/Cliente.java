@@ -99,10 +99,10 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
         System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
 
-        for (Habitacion h : hotel.getHabitaciones().getElementos()) {
+        for (Habitacion h :hotel.obtenerHabitaciones()) {
             boolean libre = true;
 
-            for (Reserva r : hotel.getReservas().getElementos()) {
+            for (Reserva r : hotel.listarReservas()) {
                 if (r.getEstadoReserva() != EstadoReserva.PENDIENTE) {
                     continue;
                 }
@@ -147,7 +147,7 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
         Reserva nueva = new Reserva(this, seleccionada, entrada, salida);
         try{
-            hotel.getReservas().agregar(nueva);
+            hotel.agregarReserva(nueva);
         }catch (Exception e){
             e.getMessage();
         }

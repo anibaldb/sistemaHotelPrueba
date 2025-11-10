@@ -40,6 +40,7 @@ public class Hotel {
 
 
 
+    //METODOS PARA USUARIOS
     public String RegistrarCliente(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado, ExceptionUsuarioDuplicado {
         return sistemaUsuarios.registrarCliente(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
     }
@@ -54,7 +55,13 @@ public class Hotel {
     public Usuario login(String eMail, String contrasenia) throws ExceptionCredencialesInvalidas{
         return sistemaUsuarios.login(eMail, contrasenia);
     }
+    //METODO RESERVA
+    public void agregarReserva(Reserva r) throws Exception{
+        reservas.agregar(r);
+    }
 
+
+    //AGREGAR HABITACION
     public String agregarHabitacion(String id,TipoHabitacion tipo, double precioXNoche ) throws ExceptionHabitacionDuplicada {
 
         for(Habitacion h: habitaciones.getElementos()){
@@ -101,5 +108,13 @@ public class Hotel {
 
     public void setSistemaUsuarios(SistemaUsuarios sistemaUsuarios) {
         this.sistemaUsuarios = sistemaUsuarios;
+    }
+
+    public List<Habitacion> obtenerHabitaciones() {
+        return new ArrayList<>(habitaciones.getElementos());
+    }
+
+    public List<Reserva> listarReservas() {
+        return new ArrayList<>(reservas.getElementos());
     }
 }
