@@ -196,34 +196,6 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
         disponibles.forEach(System.out::println);
-        /*for (Habitacion h : hotel.getHabitaciones().getElementos()) {
-            boolean libre = true;
-
-            for (Reserva r : hotel.getReservas().getElementos()) {
-                if (r.getEstadoReserva() != EstadoReserva.PENDIENTE) {
-                    continue;
-                }
-
-                if (r.getHabitacion().equals(h)) {
-                    boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) ||
-                            entrada.isAfter(r.getFechaEgreso().minusDays(1)));
-                    if (seCruzan) {
-                        libre = false;
-                        break;
-                    }
-                }
-            }
-
-            if (libre) {
-                disponibles.add(h);
-                System.out.println(h);
-            }
-        }
-
-        if (disponibles.isEmpty()) {
-            System.out.println("No hay habitaciones disponibles para esas fechas.");
-            return;
-        }*/
 
         System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
         String idSeleccionado = teclado.nextLine();
@@ -282,33 +254,14 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
 
 
-        List<Habitacion> disponibles = new ArrayList<>();
+        List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
 
         System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
 
-        for (Habitacion h : hotel.getHabitaciones().getElementos()) {
-            boolean libre = true;
-
-            for (Reserva r : hotel.getReservas().getElementos()) {
-                if (r.getHabitacion().equals(h)) {
-                    boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) ||
-                            entrada.isAfter(r.getFechaEgreso().minusDays(1)));
-                    if (seCruzan) {
-                        libre = false;
-                        break;
-                    }
-                }
-            }
-
-            if (libre) {
-                disponibles.add(h);
-                System.out.println(h);
-            }
-        }
-
         if (disponibles.isEmpty()) {
-            System.out.println("No hay habitaciones disponibles para esas fechas.");
-            return;
+            System.out.println("No habitaciones disponibles para esas fechas");
+        }else{
+            disponibles.forEach(System.out::println);
         }
     }
 
