@@ -28,7 +28,6 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         SistemaUsuarios sistemaUsuarios = new SistemaUsuarios();
         Scanner teclado = new Scanner(System.in);
         int opcion;
-
         do{
             String str="";
             str += "Menu:\n";
@@ -132,13 +131,12 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     @Override
     public void crearReserva(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
-        SistemaUsuarios sistemaUsuarios = hotel.getSistemaUsuarios();
 
         System.out.print("Ingrese el DNI del cliente: ");
         int dniCliente = teclado.nextInt();
         teclado.nextLine();
 
-        Cliente cliente = sistemaUsuarios.buscarPorDni(dniCliente);
+        Cliente cliente = hotel.buscarClientePorDni(dniCliente);
 
         if (cliente == null) {
             System.out.println("No se encontró cliente con ese DNI.");
@@ -162,8 +160,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                 String contra = teclado.nextLine();
 
                 try {
-                    sistemaUsuarios.registrarCliente(nombre, dniCliente, origen, direccion, email, contra);
-                    cliente = sistemaUsuarios.buscarPorDni(dniCliente);
+                    hotel.RegistrarCliente(nombre, dniCliente, origen, direccion, email, contra);
+                    cliente = hotel.buscarClientePorDni(dniCliente);
                     System.out.println("Cliente registrado exitosamente.");
                 } catch (ExceptionUsuarioDuplicado e) {
                     System.out.println(e.getMessage());
@@ -188,11 +186,17 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
 
 
-        List<Habitacion> disponibles = new ArrayList<>();
+        List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
+
+        if(disponibles.isEmpty()){
+            System.out.println("No hay habitaciones disponibles para esas fechas");
+            return;
+        }
+
 
         System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
-
-        for (Habitacion h : hotel.getHabitaciones().getElementos()) {
+        disponibles.forEach(System.out::println);
+        /*for (Habitacion h : hotel.getHabitaciones().getElementos()) {
             boolean libre = true;
 
             for (Reserva r : hotel.getReservas().getElementos()) {
@@ -219,20 +223,13 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         if (disponibles.isEmpty()) {
             System.out.println("No hay habitaciones disponibles para esas fechas.");
             return;
-        }
+        }*/
 
         System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
         String idSeleccionado = teclado.nextLine();
 
-        Habitacion seleccionada = null;
-        for (Habitacion h : disponibles) {
-            if (h.getId().equalsIgnoreCase(idSeleccionado)) {
-                seleccionada = h;
-                break;
-            }
-        }
-
-        if (seleccionada == null) {
+        Habitacion seleccionada = hotel.buscarHabitacionPorId(idSeleccionado);
+        if (seleccionada == null || !disponibles.contains(seleccionada)) {
             System.out.println("El ID ingresado no corresponde a ninguna habitación disponible.");
             return;
         }
@@ -241,7 +238,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         Reserva nueva = new Reserva(cliente, seleccionada, entrada, salida);
 
         try{
-            hotel.getReservas().agregar(nueva);
+            hotel.agregarReserva(nueva);
         }catch(Exception e){
             e.getMessage();
         }

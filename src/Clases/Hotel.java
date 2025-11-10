@@ -1,6 +1,7 @@
 package Clases;
 
 import Enums.EstadoHabitacion;
+import Enums.EstadoReserva;
 import Enums.TipoHabitacion;
 import Exceptions.ExceptionCredencialesInvalidas;
 import Exceptions.ExceptionHabitacionDuplicada;
@@ -60,6 +61,10 @@ public class Hotel {
         reservas.agregar(r);
     }
 
+    public Cliente buscarClientePorDni(int dni){
+        return sistemaUsuarios.buscarPorDni(dni);
+    }
+
 
     //AGREGAR HABITACION
     public String agregarHabitacion(String id,TipoHabitacion tipo, double precioXNoche ) throws ExceptionHabitacionDuplicada {
@@ -80,6 +85,36 @@ public class Hotel {
 
         return "Habitacion agregada correctamente";
     }
+
+    public List<Habitacion> obtenerHabitacionesDisponibles(LocalDate entrada, LocalDate salida) {
+        List<Habitacion> disponibles = new ArrayList<>();
+        for (Habitacion h : habitaciones.getElementos()) {
+            boolean libre = true;
+            for (Reserva r : reservas.getElementos()) {
+                if (r.getEstadoReserva() != EstadoReserva.PENDIENTE) continue;
+                if (r.getHabitacion().equals(h)) {
+                    boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) ||
+                            entrada.isAfter(r.getFechaEgreso().minusDays(1)));
+                    if (seCruzan) {
+                        libre = false;
+                        break;
+                    }
+                }
+            }
+            if (libre) disponibles.add(h);
+        }
+        return disponibles;
+    }
+
+    public Habitacion buscarHabitacionPorId(String id){
+        for (Habitacion h:habitaciones.getElementos()) {
+            if(h.getId().equals(id)){
+                return h;
+            }
+        }
+        return null;
+    }
+
 
 
     public String getNombre() {
