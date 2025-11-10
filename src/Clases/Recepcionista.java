@@ -270,9 +270,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         StringBuilder sb = new StringBuilder();
         sb.append("=== Lista de Habitaciones ===\n");
-        for (Habitacion h : hotel.getHabitaciones().getElementos()) {
-            sb.append("Habitación: ").append(h.getId())
-                    .append(" | Estado: ").append(h.getEstado());
+        for (Habitacion h : hotel.obtenerHabitaciones()) {
+            sb.append("Habitación: ").append(h.getId()).append(" | Estado: ").append(h.getEstado());
             if (h.getEstado() == EstadoHabitacion.FUERA_DE_SERVICIO) {
                 sb.append(" | Motivo: ").append(h.getMotivoFueraServicio());
             }
@@ -284,51 +283,56 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         String sino = "";
         System.out.println(" Desea cambiar estado de alguna habitacion? s/n");
         sino = teclado.nextLine();
-        if (sino.equalsIgnoreCase("s")) {
-            System.out.print("Ingrese ID de habitación a cambiar estado: ");
-            String opcion = teclado.nextLine();
-            boolean encontrada = false;
-
-            for (Habitacion h : hotel.getHabitaciones().getElementos()) {
-                if (opcion.equalsIgnoreCase(h.getId())) {
-                    encontrada = true;
-                    System.out.println("Elija nuevo estado:");
-                    System.out.println("1 - Disponible");
-                    System.out.println("2 - Desinfección");
-                    System.out.println("3 - Fuera de servicio");
-
-                    int opcion2 = teclado.nextInt();
-                    teclado.nextLine();
-
-                    switch (opcion2) {
-                        case 1 -> h.setEstado(EstadoHabitacion.DISPONIBLE);
-                        case 2 -> h.setEstado(EstadoHabitacion.DESINFECCION);
-                        case 3 -> {
-                            System.out.print("Ingrese motivo de fuera de servicio: ");
-                            String motivo = teclado.nextLine();
-                            h.setEstado(EstadoHabitacion.FUERA_DE_SERVICIO);
-                            h.setearMotivoFueraServicio(motivo);
-                        }
-                        default -> System.out.println("Opción inválida.");
-                    }
-
-                    System.out.println("Estado de la habitación actualizado.");
-                    break;
-                }
-            }
-
-            if (!encontrada) {
-                System.out.println("No se encontró una habitación con el ID ingresado.");
-            }
-
-        } else if (sino.equals("n")) {
-            System.out.println("Operación cancelada.");
-        } else {
-            System.out.println("Respuesta no válida. Debe ingresar 's' o 'n'.");
+        if (!sino.equalsIgnoreCase("s")) {
+            System.out.println("Operacion cancelada");
+            return;
         }
 
+        // Buscar habitación
+        System.out.print("Ingrese ID de habitación a cambiar estado: ");
+        String idHabitacion = teclado.nextLine();
 
+        Habitacion habitacion = hotel.buscarHabitacionPorId(idHabitacion);
+
+        if (habitacion == null) {
+            System.out.println("No se encontró una habitación con ese ID.");
+            return;
+        }
+
+        // Selección de nuevo estado
+        System.out.println("Elija nuevo estado:");
+        System.out.println("1 - Disponible");
+        System.out.println("2 - Desinfección");
+        System.out.println("3 - Fuera de servicio");
+
+        int opcion = teclado.nextInt();
+        teclado.nextLine(); // limpiar buffer
+
+        switch (opcion) {
+            case 1 -> {
+                habitacion.setEstado(EstadoHabitacion.DISPONIBLE);
+                habitacion.setearMotivoFueraServicio(null);
+            }
+            case 2 -> {
+                habitacion.setEstado(EstadoHabitacion.DESINFECCION);
+                habitacion.setearMotivoFueraServicio(null);
+            }
+            case 3 -> {
+                System.out.print("Ingrese motivo de fuera de servicio: ");
+                String motivo = teclado.nextLine();
+                habitacion.setEstado(EstadoHabitacion.FUERA_DE_SERVICIO);
+                habitacion.setearMotivoFueraServicio(motivo);
+            }
+            default -> {
+                System.out.println("Opción inválida.");
+                return;
+            }
+        }
+
+        System.out.println("Estado de la habitación actualizado correctamente.");
     }
+
+
 
     public void cancelarReservaPorDni(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
