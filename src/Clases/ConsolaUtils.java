@@ -10,11 +10,11 @@ public class ConsolaUtils {
             try {
                 System.out.println(mensaje);
                 numero = scanner.nextInt();
-                esValido = true; // Si llegamos aquí, es un número, salimos del bucle
+                esValido = true; // Si llegamos aca, es un número, salimos del bucle
             } catch (InputMismatchException e) {
                 System.out.println("Error: Debe ingresar un número. Intente de nuevo.");
             } finally {
-                scanner.nextLine(); // ¡IMPORTANTE! Limpia el buffer del scanner siempre.
+                scanner.nextLine(); //  Limpia el buffer del scanner siempre.
             }
         }
         return numero;
