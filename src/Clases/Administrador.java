@@ -126,12 +126,11 @@ public class Administrador extends Usuario {
                         case 3: {
                             tipo=TipoHabitacion.SUITE;
                             break;
-                        }   
+                        }
                     }
 
-
-                    System.out.println("Ingrese precio x noche: ");
-                    double precio= teclado.nextDouble();
+                    
+                    double precio= ConsolaUtils.leerDouble(teclado, "Ingrese precio x noche: ");
 
 
 
