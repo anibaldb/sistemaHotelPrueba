@@ -5,7 +5,7 @@ import Exceptions.ExceptionHabitacionDuplicada;
 import Exceptions.ExceptionUsuarioDuplicado;
 
 import java.util.Scanner;
-
+import java.util.InputMismatchException;
 public class Administrador extends Usuario {
 
     public Administrador(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) {
@@ -51,8 +51,18 @@ public class Administrador extends Usuario {
                     System.out.println("Ingrese nombre: ");
                     String nombre= teclado.nextLine();
 
-                    System.out.println("Ingrese dni:");
-                    int dni= teclado.nextInt();
+                    int dni = 0;
+                    boolean dniValido = false;
+                    while (!dniValido) {
+                        try {
+                            System.out.println("Ingrese dni:");
+                            dni = teclado.nextInt();
+                            dniValido = true;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Error: El DNI debe ser un número. Intente de nuevo.");
+                            teclado.nextLine();
+                        }
+                    }
                     teclado.nextLine();
 
                     System.out.println("Ingrese origen: ");
@@ -82,8 +92,18 @@ public class Administrador extends Usuario {
                     System.out.println("Ingrese nombre: ");
                     String nombre= teclado.nextLine();
 
-                    System.out.println("Ingrese dni:");
-                    int dni= teclado.nextInt();
+                    int dni = 0;
+                    boolean dniValido = false;
+                    while (!dniValido) {
+                        try {
+                            System.out.println("Ingrese dni:");
+                            dni = teclado.nextInt();
+                            dniValido = true;
+                        } catch (InputMismatchException e) {
+                            System.out.println("Error: El DNI debe ser un número. Intente de nuevo.");
+                            teclado.nextLine(); 
+                        }
+                    }
                     teclado.nextLine();
 
                     System.out.println("Ingrese origen: ");
