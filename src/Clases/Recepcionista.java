@@ -39,10 +39,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             str += "6 - Realizar CHECK-OUT\n";
             str += "7 - Cancelar reserva\n";
             str += "0 - Salir\n\n";
-            str += "Ingrese opcion: ";
             System.out.println(str);
             opcion = ConsolaUtils.leerEntero(teclado, "Ingrese opcion: ");
-            teclado.nextLine();
+
 
             switch (opcion) {
                 case 1 -> {
@@ -392,60 +391,55 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
     }
 
+    //metodo para realizar el check in poniendo id/numero de la habitacion
+
     public void realizarChkIn(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
         int nroReserva = ConsolaUtils.leerEntero(teclado, "Ingrese número de reserva para realizar CHECK-IN: ");
 
+        Reserva reserva = hotel.buscarReservaPorId(nroReserva);
 
-        boolean encontrada = false;
-
-        for (Reserva r : hotel.getReservas().getElementos()) {
-            if (r.getId() == nroReserva) {
-                encontrada = true;
-                if (r.getEstadoReserva() == EstadoReserva.ACTIVA) {
-                    System.out.println("La reserva ya está activa.");
-                } else if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
-                    System.out.println("No se puede hacer CHECK-IN: la reserva está cancelada.");
-                } else {
-                    r.setEstadoReserva(EstadoReserva.ACTIVA);
-                    System.out.println("CHECK-IN realizado correctamente para la reserva N° " + r.getId());
-                }
-                break;
-            }
+        if (reserva == null) {
+            System.out.println("No se encontró ninguna reserva con el número ingresado.");
+            return;
         }
 
-        if (!encontrada) {
-            System.out.println("No se encontró ninguna reserva con el número ingresado.");
+        // Verificamos el estado sin acceder a listas internas
+        if (reserva.getEstadoReserva() == EstadoReserva.ACTIVA) {
+            System.out.println("La reserva ya está activa.");
+        } else if (reserva.getEstadoReserva() == EstadoReserva.CANCELADA) {
+            System.out.println("No se puede hacer CHECK-IN: la reserva está cancelada.");
+        } else {
+            reserva.setEstadoReserva(EstadoReserva.ACTIVA);
+            System.out.println("CHECK-IN realizado correctamente para la reserva N° " + reserva.getId());
         }
     }
 
+
+    //CHECK OUT MANDANDO ID O NRO DE HABITACION
     public void realizarChkOut(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
 
         int nroReserva = ConsolaUtils.leerEntero(teclado, "Ingrese número de reserva para realizar CHECK-OUT: ");
 
+        //llamamos metodo de hotel que busca reservas por id
+        Reserva reserva = hotel.buscarReservaPorId(nroReserva);
 
-        boolean encontrada = false;
-
-        for (Reserva r : hotel.getReservas().getElementos()) {
-            if (r.getId() == nroReserva) {
-                encontrada = true;
-                if (r.getEstadoReserva() == EstadoReserva.TERMINADA) {
-                    System.out.println("La reserva ya está Terminada.");
-                } else if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
-                    System.out.println("No se puede hacer CHECK-OUT: la reserva está cancelada.");
-                } else {
-                    r.setEstadoReserva(EstadoReserva.TERMINADA);
-                    System.out.println("CHECK-OUT realizado correctamente para la reserva N° " + r.getId());
-                }
-                break;
-            }
+        if (reserva == null) {
+            System.out.println("No se encontró ninguna reserva con el número ingresado.");
+            return;
         }
 
-        if (!encontrada) {
-            System.out.println("No se encontró ninguna reserva con el número ingresado.");
+        // Lógica del check-out sin acceder a estructuras internas
+        if (reserva.getEstadoReserva() == EstadoReserva.TERMINADA) {
+            System.out.println("La reserva ya está terminada.");
+        } else if (reserva.getEstadoReserva() == EstadoReserva.CANCELADA) {
+            System.out.println("No se puede hacer CHECK-OUT: la reserva está cancelada.");
+        } else {
+            reserva.setEstadoReserva(EstadoReserva.TERMINADA);
+            System.out.println("CHECK-OUT realizado correctamente para la reserva N° " + reserva.getId());
         }
 
     }
