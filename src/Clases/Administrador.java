@@ -69,7 +69,7 @@ public class Administrador extends Usuario {
 
                     try{
 
-                        System.out.println(hotel.getSistemaUsuarios().registrarCliente(nombre,dni,origen,direccion,email,contra));
+                        System.out.println(hotel.RegistrarCliente(nombre,dni,origen,direccion,email,contra));
                     }catch (ExceptionUsuarioDuplicado e){
                         System.out.println(e.getMessage());
                     }
@@ -100,7 +100,7 @@ public class Administrador extends Usuario {
 
                     try{
 
-                        System.out.println(hotel.getSistemaUsuarios().registrarRecepcionista(nombre,dni,origen,direccion,email,contra));
+                        System.out.println(hotel.registrarRecepcionista(nombre,dni,origen,direccion,email,contra));
                     }catch (ExceptionUsuarioDuplicado e){
                         System.out.println(e.getMessage());
                     }
