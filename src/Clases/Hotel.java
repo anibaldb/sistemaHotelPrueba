@@ -86,6 +86,8 @@ public class Hotel {
         return "Habitacion agregada correctamente";
     }
 
+    //METODO QUE DEVUELVE LAS HABITACIONES DISPONIBLES
+
     public List<Habitacion> obtenerHabitacionesDisponibles(LocalDate entrada, LocalDate salida) {
         List<Habitacion> disponibles = new ArrayList<>();
         for (Habitacion h : habitaciones.getElementos()) {
@@ -106,6 +108,8 @@ public class Hotel {
         return disponibles;
     }
 
+
+    //METODO QUE BUSCA HABITACION POR ID, DEVUELVE LA HABITACION SINO NULL
     public Habitacion buscarHabitacionPorId(String id){
         for (Habitacion h:habitaciones.getElementos()) {
             if(h.getId().equals(id)){
@@ -115,6 +119,43 @@ public class Hotel {
         return null;
     }
 
+    //METODO QUE BUSCA RESERVA POR ID
+    public Reserva buscarReservaPorId(int id) {
+        for (Reserva r : this.reservas.getElementos()) {
+            if (r.getId() == id) {
+                return r;
+            }
+        }
+        return null;
+    }
+    //METODO PARA BUSCAR UNA RESERVA POR DNI
+
+
+    public List<Reserva> buscarReservasPorDni(int dni) {
+        List<Reserva> resultado = new ArrayList<>();
+        for (Reserva r : this.reservas.getElementos()) {
+            if (r.getCliente().getDni() == dni) {
+                resultado.add(r);
+            }
+        }
+        return resultado;
+    }
+
+
+    //CANCELAR RESERVA PASANDO SU ID
+    public boolean cancelarReserva(int idReserva) {
+        for (Reserva r : this.reservas.getElementos()) {
+            if (r.getId() == idReserva) {
+                if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
+                    return false; // Ya estaba cancelada
+                } else {
+                    r.setEstadoReserva(EstadoReserva.CANCELADA);
+                    return true;
+                }
+            }
+        }
+        return false; // No encontrada
+    }
 
 
     public String getNombre() {

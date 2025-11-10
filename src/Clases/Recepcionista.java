@@ -339,53 +339,40 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         System.out.print("Ingrese DNI del cliente para cancelar reserva: ");
         int nroDni = teclado.nextInt();
-
         teclado.nextLine();
 
-        Cliente cliente=hotel.getSistemaUsuarios().buscarPorDni(nroDni);
+        Cliente cliente=hotel.buscarClientePorDni(nroDni);
 
-        if (cliente != null) {
+       if (cliente == null) {
+           System.out.println("No se encontro el cliente con ese DNI.");
+           return;
+       }
+       List<Reserva> reservasCliente = hotel.buscarReservasPorDni(nroDni);
 
-            for (Reserva r : hotel.getReservas().getElementos()) {
-                if (r.getEstadoReserva()==EstadoReserva.PENDIENTE && r.getCliente().getDni() == nroDni) {
-                    System.out.println(r.toString());
-                }
-            }
-            System.out.println("Ingrese el nro de reserva a cancelar: ");
-            int nroReserva = teclado.nextInt();
-            for (Reserva r : hotel.getReservas().getElementos()) {
-                if (r.getId() == nroReserva) {
 
-                    if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
-                        System.out.println("La reserva ya está Cancelada.");
-
-                    } else {
-                        r.setEstadoReserva(EstadoReserva.CANCELADA);
-                        System.out.println("Reserva N° " + r.getId() + "Cancelada con exito...");
-                    }
-                    break;
-                }
-
+        if (reservasCliente.isEmpty()) {
+            System.out.println("El cliente no tiene reservas registradas.");
+            return;
         }
 
-
-
-        }else {
-
-            System.out.println("No se encontró ningún cliente con el dni ingresado.");
-
+        System.out.println("\n=== Reservas del cliente ===");
+        for (Reserva r : reservasCliente) {
+            System.out.println(r);
         }
 
+        System.out.print("Ingrese el número de reserva a cancelar: ");
+        int idReserva = teclado.nextInt();
+        teclado.nextLine();
 
+        boolean exito = hotel.cancelarReserva(idReserva);
 
-
-
-
-
-
-
-
+        if (exito) {
+            System.out.println("Reserva N° " + idReserva + " cancelada con éxito.");
+        } else {
+            System.out.println("No se pudo cancelar la reserva (ya cancelada o inexistente).");
+        }
     }
+
 
     public void cancelarReservaPorId(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
@@ -395,24 +382,18 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         teclado.nextLine();
 
 
-        boolean encontrada = false;
+        boolean encontrada = hotel.cancelarReserva(nroReserva);
 
-        for (Reserva r : hotel.getReservas().getElementos()) {
-            if (r.getId() == nroReserva) {
-                encontrada = true;
-                if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
-                    System.out.println("La reserva ya está Cancelada.");
-
-                } else {
-                    r.setEstadoReserva(EstadoReserva.CANCELADA);
-                    System.out.println("Reserva N° " + r.getId() + "Cancelada con exito...");
-                }
-                break;
+        if (encontrada) {
+            System.out.println("Reserva N° " + nroReserva + " cancelada con éxito.");
+        } else {
+            // Podría no existir o ya estar cancelada
+            Reserva reserva = hotel.buscarReservaPorId(nroReserva);
+            if (reserva == null) {
+                System.out.println("No se encontró ninguna reserva con el número ingresado.");
+            } else if (reserva.getEstadoReserva() == EstadoReserva.CANCELADA) {
+                System.out.println("La reserva ya estaba cancelada.");
             }
-        }
-
-        if (!encontrada) {
-            System.out.println("No se encontró ninguna reserva con el número ingresado.");
         }
     }
 
