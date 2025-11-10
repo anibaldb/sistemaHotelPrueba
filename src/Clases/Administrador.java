@@ -51,19 +51,7 @@ public class Administrador extends Usuario {
                     System.out.println("Ingrese nombre: ");
                     String nombre= teclado.nextLine();
 
-                    int dni = 0;
-                    boolean dniValido = false;
-                    while (!dniValido) {
-                        try {
-                            System.out.println("Ingrese dni:");
-                            dni = teclado.nextInt();
-                            dniValido = true;
-                        } catch (InputMismatchException e) {
-                            System.out.println("Error: El DNI debe ser un número. Intente de nuevo.");
-                            teclado.nextLine();
-                        }
-                    }
-                    teclado.nextLine();
+                    int dni = ConsolaUtils.leerEntero(teclado, "Ingrese dni:");
 
                     System.out.println("Ingrese origen: ");
                     String origen= teclado.nextLine();
@@ -92,19 +80,7 @@ public class Administrador extends Usuario {
                     System.out.println("Ingrese nombre: ");
                     String nombre= teclado.nextLine();
 
-                    int dni = 0;
-                    boolean dniValido = false;
-                    while (!dniValido) {
-                        try {
-                            System.out.println("Ingrese dni:");
-                            dni = teclado.nextInt();
-                            dniValido = true;
-                        } catch (InputMismatchException e) {
-                            System.out.println("Error: El DNI debe ser un número. Intente de nuevo.");
-                            teclado.nextLine(); 
-                        }
-                    }
-                    teclado.nextLine();
+                    int dni = ConsolaUtils.leerEntero(teclado, "Ingrese dni:");
 
                     System.out.println("Ingrese origen: ");
                     String origen= teclado.nextLine();
@@ -135,8 +111,8 @@ public class Administrador extends Usuario {
 
                     System.out.println("Ingrese tipo: 1-simple, 2-doble. 3-suite");
                     TipoHabitacion tipo=null;
-                    opcion= teclado.nextInt();
-                    switch (opcion){
+                    int opcionTipo = ConsolaUtils.leerEntero(teclado, "Ingrese una opción (1, 2 o 3):");
+                    switch (opcionTipo){
                         case 1: {
                             tipo=TipoHabitacion.SIMPLE;
                             break;
@@ -150,9 +126,9 @@ public class Administrador extends Usuario {
                         case 3: {
                             tipo=TipoHabitacion.SUITE;
                             break;
-                        }
+                        }   
                     }
-                    teclado.nextLine();
+
 
                     System.out.println("Ingrese precio x noche: ");
                     double precio= teclado.nextDouble();
