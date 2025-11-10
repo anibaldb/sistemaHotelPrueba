@@ -7,7 +7,7 @@ import Exceptions.ExceptionUsuarioDuplicado;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+import Clases.ConsolaUtils;
 public class Main {
     public static void main(String[] args) {
 
@@ -51,13 +51,11 @@ public class Main {
             System.out.println("2- Registrar Nuevo Usuario");
             System.out.println("0- Salir\n");
 
-            try {
-                System.out.println("Ingrese opcion: ");
-                opcion = teclado.nextInt();
+            opcion = ConsolaUtils.leerEntero(teclado, "Ingrese opcion: ");
 
             switch (opcion) {
                 case 1 -> {
-                    teclado.nextLine();
+
                     System.out.println("Ingrese eMail: ");
 
                     String mail = teclado.nextLine();
@@ -78,27 +76,12 @@ public class Main {
                 }
                 case 2 -> {
 
-                    teclado.nextLine();
+
 
                     System.out.println("Ingrese nombre: ");
                     String nombre = teclado.nextLine();
 
-                    int dni = 0;
-                    boolean dniValido = false;
-
-                    while (!dniValido) {
-                        try {
-                            System.out.println("Ingrese dni:");
-                            dni = teclado.nextInt();
-                            dniValido = true;
-                        } catch (InputMismatchException e) {
-                            System.out.println("Error: El DNI debe ser un número. Intente de nuevo");
-                            teclado.nextLine();
-                        }
-                    }
-
-
-                    teclado.nextLine();
+                    int dni = ConsolaUtils.leerEntero(teclado, "Ingrese dni:");
 
                     System.out.println("Ingrese origen: ");
                     String origen = teclado.nextLine();
@@ -125,10 +108,7 @@ public class Main {
                 }
             }
 
-            }catch (InputMismatchException e){
-                System.out.println("Error: Debe ingresar solo numeros, no letras");
-                teclado.nextLine(); //PARA EVITAR CICLO INFINITO
-            }
+
 
 
 
