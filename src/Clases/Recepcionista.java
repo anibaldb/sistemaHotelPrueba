@@ -107,7 +107,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                 }
                 case 7 ->{
                     System.out.println("Cancelar reserva por DNI (opcion 1) o por Id de reserva (opcion 2) ?");
-                    System.out.println("Ingrese opcion: ");
+                    
                     int opcion2 = ConsolaUtils.leerEntero(teclado, "Ingrese opcion: ");
                     switch (opcion2) {
                         case 1 -> {cancelarReservaPorDni(hotel);}
