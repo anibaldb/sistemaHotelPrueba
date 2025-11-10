@@ -41,14 +41,12 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             str += "0 - Salir\n\n";
             str += "Ingrese opcion: ";
             System.out.println(str);
-            opcion = teclado.nextInt();
+            opcion = ConsolaUtils.leerEntero(teclado, "Ingrese opcion: ");
             teclado.nextLine();
 
             switch (opcion) {
                 case 1 -> {
-                    System.out.print("Ingrese el DNI del cliente: ");
-                    int dni = teclado.nextInt();
-                    teclado.nextLine();
+                    int dni = ConsolaUtils.leerEntero(teclado, "Ingrese el DNI del cliente: ");
 
                     Cliente cliente = sistemaUsuarios.buscarPorDni(dni);
 
@@ -110,8 +108,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                 case 7 ->{
                     System.out.println("Cancelar reserva por DNI (opcion 1) o por Id de reserva (opcion 2) ?");
                     System.out.println("Ingrese opcion: ");
-                    int opcion2 = teclado.nextInt();
-                    teclado.nextLine();
+                    int opcion2 = ConsolaUtils.leerEntero(teclado, "Ingrese opcion: ");
                     switch (opcion2) {
                         case 1 -> {cancelarReservaPorDni(hotel);}
                         case 2 -> {cancelarReservaPorId(hotel);}
@@ -132,9 +129,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     public void crearReserva(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
-        System.out.print("Ingrese el DNI del cliente: ");
-        int dniCliente = teclado.nextInt();
-        teclado.nextLine();
+
+        int dniCliente = ConsolaUtils.leerEntero(teclado, "Ingrese el DNI del cliente: ");
+
 
         Cliente cliente = hotel.buscarClientePorDni(dniCliente);
 
@@ -337,9 +334,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     public void cancelarReservaPorDni(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
-        System.out.print("Ingrese DNI del cliente para cancelar reserva: ");
-        int nroDni = teclado.nextInt();
-        teclado.nextLine();
+
+        int nroDni = ConsolaUtils.leerEntero(teclado, "Ingrese DNI del cliente para cancelar lar reserva");
+
 
         Cliente cliente=hotel.buscarClientePorDni(nroDni);
 
@@ -360,14 +357,13 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             System.out.println(r);
         }
 
-        System.out.print("Ingrese el número de reserva a cancelar: ");
-        int idReserva = teclado.nextInt();
-        teclado.nextLine();
 
-        boolean exito = hotel.cancelarReserva(idReserva);
+        int nroReserva = ConsolaUtils.leerEntero(teclado, "Ingrese el nro de reserva...");
+
+        boolean exito = hotel.cancelarReserva(nroReserva);
 
         if (exito) {
-            System.out.println("Reserva N° " + idReserva + " cancelada con éxito.");
+            System.out.println("Reserva N° " + nroReserva + " cancelada con éxito.");
         } else {
             System.out.println("No se pudo cancelar la reserva (ya cancelada o inexistente).");
         }
@@ -377,9 +373,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     public void cancelarReservaPorId(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
-        System.out.print("Ingrese número de reserva a Cancelar: ");
-        int nroReserva = teclado.nextInt();
-        teclado.nextLine();
+
+        int nroReserva = ConsolaUtils.leerEntero(teclado, "Ingrese número de reserva a Cancelar: ");
 
 
         boolean encontrada = hotel.cancelarReserva(nroReserva);
@@ -400,9 +395,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     public void realizarChkIn(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
-        System.out.print("Ingrese número de reserva para realizar CHECK-IN: ");
-        int nroReserva = teclado.nextInt();
-        teclado.nextLine();
+        int nroReserva = ConsolaUtils.leerEntero(teclado, "Ingrese número de reserva para realizar CHECK-IN: ");
 
 
         boolean encontrada = false;
@@ -431,9 +424,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         Scanner teclado = new Scanner(System.in);
 
-        System.out.print("Ingrese número de reserva para realizar CHECK-OUT: ");
-        int nroReserva = teclado.nextInt();
-        teclado.nextLine();
+        int nroReserva = ConsolaUtils.leerEntero(teclado, "Ingrese número de reserva para realizar CHECK-OUT: ");
 
 
         boolean encontrada = false;
