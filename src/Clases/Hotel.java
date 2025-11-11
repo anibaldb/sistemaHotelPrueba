@@ -6,6 +6,8 @@ import Enums.TipoHabitacion;
 import Exceptions.ExceptionCredencialesInvalidas;
 import Exceptions.ExceptionHabitacionDuplicada;
 import Exceptions.ExceptionUsuarioDuplicado;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -74,7 +76,7 @@ public class Hotel {
                 throw new ExceptionHabitacionDuplicada("La habitacion ya existe...") ;
             }
         }
-        Habitacion habitacion=new Habitacion(id,tipo,precioXNoche);
+        Habitacion habitacion=new Habitacion(tipo,precioXNoche);
         try {
             habitaciones.agregar(habitacion);
         }catch (Exception e){
@@ -85,8 +87,6 @@ public class Hotel {
 
         return "Habitacion agregada correctamente";
     }
-
-    //METODO QUE DEVUELVE LAS HABITACIONES DISPONIBLES
 
     public List<Habitacion> obtenerHabitacionesDisponibles(LocalDate entrada, LocalDate salida) {
         List<Habitacion> disponibles = new ArrayList<>();
@@ -108,54 +108,16 @@ public class Hotel {
         return disponibles;
     }
 
-
     //METODO QUE BUSCA HABITACION POR ID, DEVUELVE LA HABITACION SINO NULL
-    public Habitacion buscarHabitacionPorId(String id){
+    public Habitacion buscarHabitacionPorId(int id){
         for (Habitacion h:habitaciones.getElementos()) {
-            if(h.getId().equals(id)){
+            if(h.getId()==id){
                 return h;
             }
         }
         return null;
     }
 
-    //METODO QUE BUSCA RESERVA POR ID
-    public Reserva buscarReservaPorId(int id) {
-        for (Reserva r : this.reservas.getElementos()) {
-            if (r.getId() == id) {
-                return r;
-            }
-        }
-        return null;
-    }
-    //METODO PARA BUSCAR UNA RESERVA POR DNI
-
-
-    public List<Reserva> buscarReservasPorDni(int dni) {
-        List<Reserva> resultado = new ArrayList<>();
-        for (Reserva r : this.reservas.getElementos()) {
-            if (r.getCliente().getDni() == dni) {
-                resultado.add(r);
-            }
-        }
-        return resultado;
-    }
-
-
-    //CANCELAR RESERVA PASANDO SU ID
-    public boolean cancelarReserva(int idReserva) {
-        for (Reserva r : this.reservas.getElementos()) {
-            if (r.getId() == idReserva) {
-                if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
-                    return false; // Ya estaba cancelada
-                } else {
-                    r.setEstadoReserva(EstadoReserva.CANCELADA);
-                    return true;
-                }
-            }
-        }
-        return false; // No encontrada
-    }
 
 
     public String getNombre() {
@@ -193,4 +155,59 @@ public class Hotel {
     public List<Reserva> listarReservas() {
         return new ArrayList<>(reservas.getElementos());
     }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("nombre", nombre);
+
+        JSONArray habitacionesArray = new JSONArray();
+        for (Habitacion h : habitaciones.getElementos())
+            habitacionesArray.put(h.toJSON());
+        json.put("habitaciones", habitacionesArray);
+        json.put("nextIdHabitacion", Habitacion.getNextId());
+
+        JSONArray reservasArray = new JSONArray();
+        for (Reserva r : reservas.getElementos())
+            reservasArray.put(r.toJSON());
+        json.put("reservas", reservasArray);
+        json.put("nextIdReserva", Reserva.getNextId());
+
+        return json;
+    }
+
+    public static Hotel fromJSON(JSONObject json) {
+        Hotel hotel = new Hotel(json.getString("nombre"));
+
+
+        JSONArray habitacionesArray = json.getJSONArray("habitaciones");
+        for (int i = 0; i < habitacionesArray.length(); i++) {
+            JSONObject habJson = habitacionesArray.getJSONObject(i);
+            Habitacion habitacion = Habitacion.fromJSON(habJson);
+            try {
+                hotel.getHabitaciones().agregar(habitacion);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        Habitacion.setNextId(json.getInt("nextIdHabitacion"));
+
+
+        JSONArray reservasArray = json.getJSONArray("reservas");
+        for (int i = 0; i < reservasArray.length(); i++) {
+            JSONObject resJson = reservasArray.getJSONObject(i);
+            Reserva reserva = Reserva.fromJSON(resJson, hotel);
+            try {
+                hotel.getReservas().agregar(reserva);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        Reserva.setNextId(json.getInt("nextIdReserva"));
+
+        return hotel;
+    }
+
+
+
+
 }

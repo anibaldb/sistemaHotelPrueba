@@ -95,49 +95,22 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         }
 
 
-        List<Habitacion> disponibles = new ArrayList<>();
+        List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
 
-        System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
-
-        for (Habitacion h :hotel.obtenerHabitaciones()) {
-            boolean libre = true;
-
-            for (Reserva r : hotel.listarReservas()) {
-                if (r.getEstadoReserva() != EstadoReserva.PENDIENTE) {
-                    continue;
-                }
-
-                if (r.getHabitacion().equals(h)) {
-                    boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) ||
-                            entrada.isAfter(r.getFechaEgreso().minusDays(1)));
-                    if (seCruzan) {
-                        libre = false;
-                        break;
-                    }
-                }
-            }
-
-            if (libre) {
-                disponibles.add(h);
-                System.out.println(h);
-            }
-        }
-
-        if (disponibles.isEmpty()) {
-            System.out.println("No hay habitaciones disponibles para esas fechas.");
+        if(disponibles.isEmpty()){
+            System.out.println("No hay habitaciones disponibles para esas fechas");
             return;
         }
+        System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
+
+
+
 
         System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
-        String idSeleccionado = teclado.nextLine();
+        int idSeleccionado = teclado.nextInt();
 
-        Habitacion seleccionada = null;
-        for (Habitacion h : disponibles) {
-            if (h.getId().equalsIgnoreCase(idSeleccionado)) {
-                seleccionada = h;
-                break;
-            }
-        }
+        Habitacion seleccionada = hotel.buscarHabitacionPorId(idSeleccionado);
+
 
         if (seleccionada == null) {
             System.out.println("El ID ingresado no corresponde a ninguna habitación disponible.");
@@ -145,7 +118,7 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         }
 
 
-        Reserva nueva = new Reserva(this, seleccionada, entrada, salida);
+        Reserva nueva = new Reserva(hotel,this.getDni(), idSeleccionado, entrada, salida);
         try{
             hotel.agregarReserva(nueva);
         }catch (Exception e){
