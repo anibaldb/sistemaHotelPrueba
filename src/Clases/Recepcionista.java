@@ -442,9 +442,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     public void realizarChkIn(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
-        System.out.print("Ingrese número de reserva para realizar CHECK-IN: ");
-        int nroReserva = teclado.nextInt();
-        teclado.nextLine();
+
+        int nroReserva = ConsolaUtils.leerEntero(teclado,"Ingrese número de reserva para realizar CHECK-IN:");
+
 
 
         boolean encontrada = false;
