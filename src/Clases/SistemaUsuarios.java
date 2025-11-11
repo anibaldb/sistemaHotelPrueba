@@ -115,7 +115,7 @@ public class SistemaUsuarios {
         JSONArray usuariosArray = new JSONArray();
 
         for (Usuario u : usuarios) {
-            usuariosArray.put(u.toJSON()); // cada usuario ya sabe su tipo
+            usuariosArray.put(u.toJSON()); 
         }
 
         json.put("usuarios", usuariosArray);
