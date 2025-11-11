@@ -52,9 +52,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
             switch (opcion) {
                 case 1 -> {
-                    System.out.print("Ingrese el DNI del cliente: ");
-                    int dni = teclado.nextInt();
-                    teclado.nextLine();
+                    
+                    int dni = ConsolaUtils.leerEntero(teclado,"Ingrese DNI del cliente:");
+
 
                     Cliente cliente = sistemaUsuarios.buscarPorDni(dni);
 
