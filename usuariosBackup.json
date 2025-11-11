@@ -1,0 +1,42 @@
+{
+  "usuarios": [
+    {
+      "tipo": "Cliente",
+      "direccionOrigen": "Martinez 3340",
+      "contrasenia": "cli",
+      "origen": "Argentina",
+      "nombre": "Anibal",
+      "reservasTomadas": [],
+      "dni": 29763522,
+      "eMail": "cli"
+    },
+    {
+      "tipo": "Recepcionista",
+      "direccionOrigen": "Martinez 3340",
+      "contrasenia": "recep",
+      "origen": "Argentina",
+      "nombre": "Mabel",
+      "dni": 29040871,
+      "eMail": "recep"
+    },
+    {
+      "tipo": "Administrador",
+      "direccionOrigen": "Martinez 3340",
+      "contrasenia": "admin",
+      "origen": "Cuba",
+      "nombre": "Carlos",
+      "dni": 29880648,
+      "eMail": "admin"
+    },
+    {
+      "tipo": "Cliente",
+      "direccionOrigen": "mdp",
+      "contrasenia": "2",
+      "origen": "argentina",
+      "nombre": "lucca",
+      "reservasTomadas": [],
+      "dni": 1,
+      "eMail": "2"
+    }
+  ]
+}
