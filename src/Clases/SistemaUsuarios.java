@@ -65,7 +65,7 @@ public class SistemaUsuarios {
         Usuario usuario = new Cliente(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
         usuarios.add(usuario);
 
-        return "Cliente registrado con exito...";
+        return "Cliente registrado con éxito...";
     }
 
     public String  registrarRecepcionista(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado {
@@ -77,7 +77,7 @@ public class SistemaUsuarios {
         Usuario usuario = new Recepcionista(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
         usuarios.add(usuario);
 
-        return "Recepcionista registrado con exito...";
+        return "Recepcionista registrado con éxito...";
     }
 
 
@@ -115,7 +115,7 @@ public class SistemaUsuarios {
         JSONArray usuariosArray = new JSONArray();
 
         for (Usuario u : usuarios) {
-            usuariosArray.put(u.toJSON()); 
+            usuariosArray.put(u.toJSON());
         }
 
         json.put("usuarios", usuariosArray);
