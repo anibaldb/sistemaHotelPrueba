@@ -54,7 +54,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                     int dni = ConsolaUtils.leerEntero(teclado,"Ingrese DNI del cliente:");
 
 
-                    Cliente cliente = sistemaUsuarios.buscarPorDni(dni);
+                    Cliente cliente = hotel.getSistemaUsuarios().buscarPorDni(dni);
 
                     if (cliente == null) {
                         System.out.println("No se encontró cliente con ese DNI.");
@@ -86,6 +86,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
                         }
 
+                    }else{
+                        System.out.println("Cliente existente.");
                     }
                 }
 
