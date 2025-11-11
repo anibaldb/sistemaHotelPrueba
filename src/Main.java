@@ -134,7 +134,8 @@ public class Main {
                     try {
 
                          String msg = miHotel.RegistrarCliente(nombre, dni, origen, direccion, email, contra);
-                        System.out.println(msg);
+                        sistemaUsuarios.guardarEnJSON();
+                         System.out.println(msg);
                     } catch (ExceptionUsuarioDuplicado e) {
                         System.out.println(e.getMessage());
                     }
