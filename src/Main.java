@@ -45,7 +45,7 @@ public class Main {
 
 
 
-        miHotel.guardarEnJSON();
+       // miHotel.guardarEnJSON();
 
         SistemaUsuarios sistemaUsuarios;
         File archivoUsuarios = new File("usuarios.json");
@@ -70,12 +70,13 @@ public class Main {
         }
 
 
-        sistemaUsuarios.guardarEnJSON();
+      //  sistemaUsuarios.guardarEnJSON();
 
 
 
 
 
+        miHotel.setSistemaUsuarios(sistemaUsuarios);
         Scanner teclado=new Scanner(System.in);
         int opcion = -1;
 
@@ -148,10 +149,9 @@ public class Main {
 
         }while(opcion!=0);
 
-        
-
-
-
+        miHotel.guardarEnJSON();
+        miHotel.getSistemaUsuarios().guardarEnJSON();
+        System.out.println("Guardando datos del hotel...");
     }
 
 }
