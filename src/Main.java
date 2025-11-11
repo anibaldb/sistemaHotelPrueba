@@ -1,42 +1,57 @@
 import Clases.Hotel;
+import Clases.JSONUtiles;
 import Clases.Usuario;
 import Enums.TipoHabitacion;
 import Exceptions.ExceptionCredencialesInvalidas;
 import Exceptions.ExceptionHabitacionDuplicada;
 import Exceptions.ExceptionUsuarioDuplicado;
 
+import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import Clases.ConsolaUtils;
+import org.json.JSONObject;
+
 public class Main {
     public static void main(String[] args) {
 
 
-        Hotel miHotel=new Hotel("Las Ostias");
+        Hotel miHotel;
+        File archivo = new File("hotelDatos.json");
+        if (archivo.exists()) {
+            System.out.println("Cargando datos del hotel...");
+            String contenido = JSONUtiles.downloadJSON("hotelDatos");
+            JSONObject jsonHotelLeido = new JSONObject(contenido);
+            miHotel = Hotel.fromJSON(jsonHotelLeido); }
+        else { System.out.println("Creando un nuevo hotel vacío...");
+                miHotel = new Hotel("Gran Hotel");
 
-        try{
-            miHotel.RegistrarCliente("Anibal",29763522, "Argentina","Martinez 3340", "cli", "cli");
-            miHotel.registrarRecepcionista("Mabel",29040871,"Argentina","Martinez 3340", "recep", "recep");
-            miHotel.RegistrarAdministrador("Carlos",29880648,"Cuba","Martinez 3340", "admin", "admin");
-        }catch (ExceptionUsuarioDuplicado e){
-            System.out.println(e.getMessage());
+            try{
+                miHotel.RegistrarCliente("Anibal",29763522, "Argentina","Martinez 3340", "cli", "cli");
+                miHotel.registrarRecepcionista("Mabel",29040871,"Argentina","Martinez 3340", "recep", "recep");
+                miHotel.RegistrarAdministrador("Carlos",29880648,"Cuba","Martinez 3340", "admin", "admin");
+            }catch (ExceptionUsuarioDuplicado e){
+                System.out.println(e.getMessage());
+            }
+
+            try {
+                miHotel.agregarHabitacion(TipoHabitacion.SIMPLE, 10000);
+                miHotel.agregarHabitacion(TipoHabitacion.SIMPLE, 10000);
+                miHotel.agregarHabitacion(TipoHabitacion.DOBLE, 15000);
+                miHotel.agregarHabitacion( TipoHabitacion.DOBLE, 15000);
+                miHotel.agregarHabitacion(TipoHabitacion.DOBLE, 20000);
+                miHotel.agregarHabitacion(TipoHabitacion.SIMPLE, 20000);
+                miHotel.agregarHabitacion(TipoHabitacion.SUITE, 30000);
+                miHotel.agregarHabitacion( TipoHabitacion.SUITE, 30000);
+                miHotel.agregarHabitacion(TipoHabitacion.SIMPLE, 10000);
+                miHotel.agregarHabitacion( TipoHabitacion.DOBLE, 15000);
+
+            }catch (ExceptionHabitacionDuplicada e){
+                e.getMessage();
+            }
         }
 
-        try {
-            miHotel.agregarHabitacion("1", TipoHabitacion.SIMPLE, 10000);
-            miHotel.agregarHabitacion("2", TipoHabitacion.SIMPLE, 10000);
-            miHotel.agregarHabitacion("3", TipoHabitacion.DOBLE, 15000);
-            miHotel.agregarHabitacion("4", TipoHabitacion.DOBLE, 15000);
-            miHotel.agregarHabitacion("5", TipoHabitacion.DOBLE, 20000);
-            miHotel.agregarHabitacion("6", TipoHabitacion.SIMPLE, 20000);
-            miHotel.agregarHabitacion("7", TipoHabitacion.SUITE, 30000);
-            miHotel.agregarHabitacion("8", TipoHabitacion.SUITE, 30000);
-            miHotel.agregarHabitacion("9", TipoHabitacion.SIMPLE, 10000);
-            miHotel.agregarHabitacion("10", TipoHabitacion.DOBLE, 15000);
-
-        }catch (ExceptionHabitacionDuplicada e){
-            e.getMessage();
-        }
+        miHotel.guardarEnJSON();
 
 
 

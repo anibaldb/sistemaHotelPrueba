@@ -69,13 +69,9 @@ public class Hotel {
 
 
     //AGREGAR HABITACION
-    public String agregarHabitacion(String id,TipoHabitacion tipo, double precioXNoche ) throws ExceptionHabitacionDuplicada {
+    public String agregarHabitacion(TipoHabitacion tipo, double precioXNoche ) throws ExceptionHabitacionDuplicada {
 
-        for(Habitacion h: habitaciones.getElementos()){
-            if(h.getId().equalsIgnoreCase(id)){
-                throw new ExceptionHabitacionDuplicada("La habitacion ya existe...") ;
-            }
-        }
+
         Habitacion habitacion=new Habitacion(tipo,precioXNoche);
         try {
             habitaciones.agregar(habitacion);
@@ -160,15 +156,19 @@ public class Hotel {
         JSONObject json = new JSONObject();
         json.put("nombre", nombre);
 
+        // 🔹 Guardar habitaciones
         JSONArray habitacionesArray = new JSONArray();
-        for (Habitacion h : habitaciones.getElementos())
+        for (Habitacion h : habitaciones.getElementos()) {
             habitacionesArray.put(h.toJSON());
+        }
         json.put("habitaciones", habitacionesArray);
         json.put("nextIdHabitacion", Habitacion.getNextId());
 
+        // 🔹 Guardar reservas
         JSONArray reservasArray = new JSONArray();
-        for (Reserva r : reservas.getElementos())
+        for (Reserva r : reservas.getElementos()) {
             reservasArray.put(r.toJSON());
+        }
         json.put("reservas", reservasArray);
         json.put("nextIdReserva", Reserva.getNextId());
 
@@ -205,6 +205,11 @@ public class Hotel {
         Reserva.setNextId(json.getInt("nextIdReserva"));
 
         return hotel;
+    }
+
+    public void guardarEnJSON() {
+        JSONObject jsonHotel = this.toJSON();
+        JSONUtiles.uploadJSON(jsonHotel, "hotelDatos");
     }
 
 
