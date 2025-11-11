@@ -95,7 +95,6 @@ public class Administrador extends Usuario {
                 }
                 case 3: {
 
-
                     System.out.println("Ingrese tipo: 1-simple, 2-doble. 3-suite");
                     TipoHabitacion tipo = null;
                     do {
@@ -140,11 +139,8 @@ public class Administrador extends Usuario {
                 }
                 case 4: {
                     mostrarUsuarios(hotel);
-
-
                     break;
                 }
-
                 case 5:{
                     mostrarHabitaciones(hotel);
                     break;
@@ -155,18 +151,13 @@ public class Administrador extends Usuario {
                 }
                 case 0: {
                     System.out.println("Saliendo...");}
-
                 default: {
                     System.out.println("Opcion invalida");
 
                     break;
                 }
             }
-
-
-
         }while(opcion!=0);
-
 
     }
 
@@ -177,7 +168,6 @@ public class Administrador extends Usuario {
     public void  mostrarHabitaciones(Hotel hotel){
         hotel.mostrarHabitaciones();
     }
-
 
     public void realizarBackup(Hotel hotel){
 
@@ -214,7 +204,5 @@ public class Administrador extends Usuario {
 
         );
     }
-
-
 
 }

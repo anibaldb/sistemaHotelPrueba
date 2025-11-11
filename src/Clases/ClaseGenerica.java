@@ -18,7 +18,7 @@ public class ClaseGenerica <T>{
 
     public void agregar(T objeto) throws Exception {
         if (elementos.contains(objeto)) {
-            throw new Exception("El elemnto ya existe en la base de datos");
+            throw new Exception("El elemento ya existe en la base de datos");
         }
 
         elementos.add(objeto);
