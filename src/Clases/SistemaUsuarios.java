@@ -51,6 +51,7 @@ public class SistemaUsuarios {
         }
         Usuario usuario = new Administrador(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
         usuarios.add(usuario);
+        guardarEnJSON();
 
         return "Admin registrado con exito...";
     }
@@ -65,6 +66,8 @@ public class SistemaUsuarios {
         Usuario usuario = new Cliente(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
         usuarios.add(usuario);
 
+        guardarEnJSON();
+
         return "Cliente registrado con éxito...";
     }
 
@@ -76,6 +79,8 @@ public class SistemaUsuarios {
         }
         Usuario usuario = new Recepcionista(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
         usuarios.add(usuario);
+        guardarEnJSON();
+
 
         return "Recepcionista registrado con éxito...";
     }
