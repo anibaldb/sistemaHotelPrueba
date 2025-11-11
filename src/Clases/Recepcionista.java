@@ -18,7 +18,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     }
 
 
-    
+
 
 
     @Override
@@ -220,6 +220,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
 
         cliente.agregarReservaTomada(nueva);
+
+        hotel.getSistemaUsuarios().guardarEnJSON();
+        hotel.guardarEnJSON();
 
         System.out.println("\nReserva creada exitosamente!");
         System.out.println("Desde " + entrada + " hasta " + salida);
