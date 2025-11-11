@@ -81,7 +81,7 @@ public abstract class Usuario {
 
     @Override
     public String toString() {
-        return "Nombre: " + nombre +"| DNI: " + dni + "| Origen: " + origen +"| Direccion: " + direccionOrigen + "| eMail: : " + eMail +"| Tipo: "+getTipoUsuario().toString();
+        return "Nombre: " + nombre +"| DNI: " + dni + "| Origen: " + origen +"| Direccion: " + direccionOrigen + "| eMail: : " + eMail +"| Tipo: "+tipo;
     }
     public abstract void  mostrarMenu(Hotel hotel);
 
