@@ -15,14 +15,6 @@ public class Administrador extends Usuario {
 
     }
 
-
-
-
-
-
-
-
-
     @Override
     public void  mostrarMenu(Hotel hotel) {
 
