@@ -246,7 +246,6 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         LocalDate entrada = leerFecha("Ingrese fecha de entrada (AAAA-MM-DD): ");
         LocalDate salida = leerFecha("Ingrese fecha de salida (AAAA-MM-DD): ");
 
-
         if (!salida.isAfter(entrada)) {
             System.out.println("La fecha de salida debe ser posterior a la fecha de entrada.");
             return;
@@ -265,16 +264,20 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     }
 
     public void mostrarHabitacionesEstado(Hotel hotel) {
+
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("=== Lista de Habitaciones ===");
         for (Habitacion h : hotel.obtenerHabitaciones()) {
+
             StringBuilder sb = new StringBuilder();
-            sb.append("Habitación: ").append(h.getId())
-                    .append(" | Estado: ").append(h.getEstado());
+
+            sb.append("Habitación: ").append(h.getId()).append(" | Estado: ").append(h.getEstado());
+
             if (h.getEstado() == EstadoHabitacion.FUERA_DE_SERVICIO) {
                 sb.append(" | Motivo: ").append(h.getMotivoFueraServicio());
             }
+
             System.out.println(sb);
         }
 
@@ -282,14 +285,13 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         String sino = teclado.nextLine().trim();
 
         if (!sino.equalsIgnoreCase("s")) {
-            System.out.println("Operación cancelada.");
+
             return;
         }
 
-        // Buscar habitación
         System.out.print("Ingrese ID de habitación a cambiar estado: ");
         int idHabitacion = teclado.nextInt();
-        teclado.nextLine(); // limpiar buffer
+        teclado.nextLine();
 
         Habitacion habitacion = hotel.buscarHabitacionPorId(idHabitacion);
 
@@ -298,14 +300,14 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             return;
         }
 
-        // Selección de nuevo estado
+
         System.out.println("\nElija nuevo estado:");
         System.out.println("1 - Disponible");
         System.out.println("2 - Desinfección");
         System.out.println("3 - Fuera de servicio");
 
         int opcion = teclado.nextInt();
-        teclado.nextLine(); // limpiar buffer
+        teclado.nextLine();
 
         switch (opcion) {
             case 1 -> {
