@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class Cliente extends Usuario implements MetodosUsuarios{
     List<Reserva> reservasTomadas;
 
-    public Cliente(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) {
-        super(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
+    public Cliente(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia ) {
+        super(nombre, dni, origen, direccionOrigen, eMail, contrasenia, "Cliente");
         this.reservasTomadas = new ArrayList<>();
     }
 

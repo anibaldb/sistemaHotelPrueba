@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Recepcionista extends Usuario implements MetodosUsuarios {
 
     public Recepcionista(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) {
-        super(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
+        super(nombre, dni, origen, direccionOrigen, eMail, contrasenia, "Recepcionista");
     }
 
 

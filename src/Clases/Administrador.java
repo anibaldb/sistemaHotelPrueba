@@ -9,7 +9,7 @@ import java.util.InputMismatchException;
 public class Administrador extends Usuario {
 
     public Administrador(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) {
-        super(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
+        super(nombre, dni, origen, direccionOrigen, eMail, contrasenia,"Administrador");
 
 
     }
@@ -136,7 +136,7 @@ public class Administrador extends Usuario {
 
                     try{
 
-                        System.out.println(hotel.agregarHabitacion(id,tipo,precio));
+                        System.out.println(hotel.agregarHabitacion(tipo,precio));
                     }catch (ExceptionHabitacionDuplicada e){
                         System.out.println(e.getMessage());
                     }

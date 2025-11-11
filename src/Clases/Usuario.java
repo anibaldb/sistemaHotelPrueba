@@ -7,14 +7,28 @@ public abstract class Usuario {
     private String direccionOrigen;
     private String eMail;
     private String contrasenia;
+    private String tipo;
 
-    public Usuario(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) {
+    public Usuario(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia,String tipo) {
         this.nombre = nombre;
         this.dni = dni;
         this.origen = origen;
         this.direccionOrigen = direccionOrigen;
         this.eMail = eMail;
         this.contrasenia = contrasenia;
+        this.tipo = tipo;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getNombre() {
