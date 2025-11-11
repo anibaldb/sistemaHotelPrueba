@@ -185,7 +185,17 @@ public class Administrador extends Usuario {
     }
 
 
-    public void realizarBackup(Hotel hotel){}
+    public void realizarBackup(Hotel hotel){
+
+        JSONObject jsonUsuarios = hotel.getSistemaUsuarios().toJSON();
+        JSONUtiles.uploadJSON(jsonUsuarios, "usuariosBackup");
+
+        // Backup de hotel
+        JSONObject jsonHotel = hotel.toJSON();
+        JSONUtiles.uploadJSON(jsonHotel, "hotelBackup");
+
+        System.out.println("Backup generado correctamente.");
+    }
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
