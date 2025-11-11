@@ -125,6 +125,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                 case 0->{
                     System.out.println("Cerrando sesion...");
                 }
+                default ->{
+                    System.out.println("ERROR, DEBE INGRESAR: 1,2,3,4,5,6,7 O 0");
+                }
 
             }
 
