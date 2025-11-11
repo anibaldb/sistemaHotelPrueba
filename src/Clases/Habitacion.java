@@ -45,6 +45,8 @@ public class Habitacion {
     }
 
 
+
+
     public TipoHabitacion getTipo() {
         return tipo;
     }

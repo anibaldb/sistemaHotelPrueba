@@ -104,10 +104,48 @@ public class Hotel {
         return disponibles;
     }
 
+    //METODO QUE BUSCA RESERVA POR ID
+    public Reserva buscarReservaPorId(int id) {
+        for (Reserva r : this.reservas.getElementos()) {
+            if (r.getId() == id) {
+                return r;
+            }
+        }
+        return null;
+    }
+    //METODO PARA BUSCAR UNA RESERVA POR DNI
+
+
+    public List<Reserva> buscarReservasPorDni(int dni) {
+        List<Reserva> resultado = new ArrayList<>();
+        for (Reserva r : this.reservas.getElementos()) {
+            if (r.getCliente().getDni() == dni) {
+                resultado.add(r);
+            }
+        }
+        return resultado;
+    }
+
+
+    //CANCELAR RESERVA PASANDO SU ID
+    public boolean cancelarReserva(int idReserva) {
+        for (Reserva r : this.reservas.getElementos()) {
+            if (r.getId() == idReserva) {
+                if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
+                    return false; // Ya estaba cancelada
+                } else {
+                    r.setEstadoReserva(EstadoReserva.CANCELADA);
+                    return true;
+                }
+            }
+        }
+        return false; // No encontrada
+    }
+
     //METODO QUE BUSCA HABITACION POR ID, DEVUELVE LA HABITACION SINO NULL
-    public Habitacion buscarHabitacionPorId(int id){
-        for (Habitacion h:habitaciones.getElementos()) {
-            if(h.getId()==id){
+    public Habitacion buscarHabitacionPorId(int id) {
+        for (Habitacion h : habitaciones.getElementos()) {
+            if (h.getId() == id) {
                 return h;
             }
         }
@@ -115,8 +153,7 @@ public class Hotel {
     }
 
 
-
-    public String getNombre() {
+        public String getNombre() {
         return nombre;
     }
 
@@ -128,6 +165,9 @@ public class Hotel {
         return habitaciones;
     }
 
+    public List<Habitacion>obtenerHabitaciones(){
+        return new ArrayList<>(habitaciones.getElementos());
+    }
 
 
     public ClaseGenerica<Reserva> getReservas() {
