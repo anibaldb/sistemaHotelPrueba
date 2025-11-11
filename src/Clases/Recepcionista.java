@@ -257,10 +257,11 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         if (disponibles.isEmpty()) {
             System.out.println("No hay habitaciones disponibles para esas fechas.");
 
-        } else {
+            return;
+        }
             System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
             disponibles.forEach(System.out::println);
-        }
+
     }
 
     public void mostrarHabitacionesEstado(Hotel hotel) {

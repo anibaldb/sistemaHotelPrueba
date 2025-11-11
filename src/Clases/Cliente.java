@@ -84,11 +84,12 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         if (disponibles.isEmpty()) {
             System.out.println("No hay habitaciones disponibles para esas fechas.");
 
-        } else {
+            return;
+        }
             System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
             disponibles.forEach(System.out::println);
-        }
-        
+
+
         System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
         int idSeleccionado = teclado.nextInt();
 
