@@ -128,29 +128,21 @@ public class Hotel {
         return habitaciones;
     }
 
-    public void setHabitaciones(ClaseGenerica<Habitacion> habitaciones) {
-        this.habitaciones = habitaciones;
-    }
+
 
     public ClaseGenerica<Reserva> getReservas() {
         return reservas;
     }
 
-    public void setReservas(ClaseGenerica<Reserva> reservas) {
-        this.reservas = reservas;
-    }
+
 
     public void setSistemaUsuarios(SistemaUsuarios sistemaUsuarios) {
         this.sistemaUsuarios = sistemaUsuarios;
     }
 
-    public List<Habitacion> obtenerHabitaciones() {
-        return new ArrayList<>(habitaciones.getElementos());
-    }
 
-    public List<Reserva> listarReservas() {
-        return new ArrayList<>(reservas.getElementos());
-    }
+
+
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
