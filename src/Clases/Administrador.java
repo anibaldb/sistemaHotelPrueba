@@ -3,6 +3,7 @@ package Clases;
 import Enums.TipoHabitacion;
 import Exceptions.ExceptionHabitacionDuplicada;
 import Exceptions.ExceptionUsuarioDuplicado;
+import org.json.JSONObject;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -185,6 +186,30 @@ public class Administrador extends Usuario {
 
 
     public void realizarBackup(Hotel hotel){}
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("nombre", getNombre());
+        json.put("dni", getDni());
+        json.put("origen", getOrigen());
+        json.put("direccionOrigen", getDireccionOrigen());
+        json.put("eMail", geteMail());
+        json.put("contrasenia", getContrasenia());
+        json.put("tipo", "Administrador");
+        return json;
+    }
+
+    public static Administrador fromJSON(JSONObject json) {
+        return new Administrador(
+                json.getString("nombre"),
+                json.getInt("dni"),
+                json.getString("origen"),
+                json.getString("direccionOrigen"),
+                json.getString("eMail"),
+                json.getString("contrasenia")
+
+        );
+    }
 
 
 

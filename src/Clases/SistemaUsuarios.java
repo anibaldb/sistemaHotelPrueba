@@ -2,6 +2,8 @@ package Clases;
 
 import Exceptions.ExceptionCredencialesInvalidas;
 import Exceptions.ExceptionUsuarioDuplicado;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,10 @@ public class SistemaUsuarios {
 
         this.usuarios = new ArrayList<>();
         this.usuarioLogueado = null;
+    }
+
+    public void agregarUsuario(Usuario usuario) {
+        this.usuarios.add(usuario);
     }
 
     public Usuario getUsuarioLogueado() {
@@ -102,6 +108,37 @@ public class SistemaUsuarios {
                 return (Cliente) u;
         }
         return null;
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        JSONArray usuariosArray = new JSONArray();
+
+        for (Usuario u : usuarios) {
+            usuariosArray.put(u.toJSON()); // cada usuario ya sabe su tipo
+        }
+
+        json.put("usuarios", usuariosArray);
+        return json;
+    }
+
+
+    public static SistemaUsuarios fromJSON(JSONObject json) {
+        SistemaUsuarios sistema = new SistemaUsuarios();
+        JSONArray usuariosArray = json.optJSONArray("usuarios");
+        if (usuariosArray != null) {
+            for (int i = 0; i < usuariosArray.length(); i++) {
+                JSONObject usuarioJson = usuariosArray.getJSONObject(i);
+                Usuario u = Usuario.fromJSON(usuarioJson);
+                sistema.agregarUsuario(u);
+            }
+        }
+        return sistema;
+    }
+
+    public void guardarEnJSON() {
+        JSONObject jsonSistema = this.toJSON();
+        JSONUtiles.uploadJSON(jsonSistema, "usuarios");
     }
 
 

@@ -2,6 +2,8 @@ package Clases;
 
 import Enums.EstadoReserva;
 import Interfaces.MetodosUsuarios;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -155,5 +157,64 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
         return fecha;
     }
+
+
+
+
+
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("nombre", getNombre());
+        json.put("dni", getDni());
+        json.put("origen", getOrigen());
+        json.put("direccionOrigen", getDireccionOrigen());
+        json.put("eMail", geteMail());
+        json.put("contrasenia", getContrasenia());
+        json.put("tipo", getTipo());
+
+
+        JSONArray reservasArray = new JSONArray();
+        for (Reserva r : reservasTomadas) {
+            reservasArray.put(r.toJSON());
+        }
+        json.put("reservasTomadas", reservasArray);
+
+        return json;
+    }
+
+    public List<Reserva> getReservasTomadas() {
+        return reservasTomadas;
+    }
+
+    public static Cliente fromJSON(JSONObject json) {
+        Cliente c = new Cliente(
+                json.getString("nombre"),
+                json.getInt("dni"),
+                json.getString("origen"),
+                json.getString("direccionOrigen"),
+                json.getString("eMail"),
+                json.getString("contrasenia")
+        );
+
+
+        JSONArray reservasArray = json.optJSONArray("reservasTomadas");
+        if (reservasArray != null) {
+            for (int i = 0; i < reservasArray.length(); i++) {
+                JSONObject reservaJson = reservasArray.getJSONObject(i);
+                Reserva reserva = Reserva.fromJSON(reservaJson, null);
+                c.agregarReservaTomada(reserva);
+            }
+        }
+
+        return c;
+    }
+
+
 }
+
+
+
+
+
 

@@ -1,5 +1,8 @@
 package Clases;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public abstract class Usuario {
     private String nombre;
     private int dni;
@@ -94,6 +97,57 @@ public abstract class Usuario {
     }
 
 
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("nombre", nombre);
+        json.put("dni", dni);
+        json.put("origen", origen);
+        json.put("direccionOrigen", direccionOrigen);
+        json.put("eMail", eMail);
+        json.put("contrasenia", contrasenia);
+        json.put("tipo", tipo);
+
+
+        if (this instanceof Cliente) {
+            Cliente c = (Cliente) this;
+            JSONArray reservasArray = new JSONArray();
+            for (Reserva r: c.getReservasTomadas()) {
+                reservasArray.put(r.toJSON());
+            }
+            json.put("reservasTomadas", reservasArray);
+        }
+
+        return json;
+    }
+
+
+    public static Usuario fromJSON(JSONObject json) {
+        String tipo = json.getString("tipo");
+        switch (tipo) {
+            case "Cliente":
+                return Cliente.fromJSON(json);
+            case "Recepcionista":
+                return Recepcionista.fromJSON(json);
+            case "Administrador":
+                return Administrador.fromJSON(json);
+            default:
+                throw new IllegalArgumentException("Tipo de usuario desconocido: " + tipo);
+
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 }
+
+
+
+
+

@@ -4,6 +4,7 @@ import Enums.EstadoHabitacion;
 import Enums.EstadoReserva;
 import Exceptions.ExceptionUsuarioDuplicado;
 import Interfaces.MetodosUsuarios;
+import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,6 +22,11 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         return "Recepcionista";
     }
 
+
+    @Override
+    public String geteMail() {
+        return super.geteMail();
+    }
 
     @Override
     public void mostrarMenu(Hotel hotel) {
@@ -493,6 +499,29 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             System.out.println("No se encontró ninguna reserva con el número ingresado.");
         }
 
+    }
+
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("nombre", getNombre());
+        json.put("dni", getDni());
+        json.put("origen", getOrigen());
+        json.put("direccionOrigen", getDireccionOrigen());
+        json.put("eMail", geteMail());
+        json.put("contrasenia", getContrasenia());
+        json.put("tipo", "Recepcionista");
+        return json;
+    }
+
+    public static Recepcionista fromJSON(JSONObject json) {
+        return new Recepcionista(
+                json.getString("nombre"),
+                json.getInt("dni"),
+                json.getString("origen"),
+                json.getString("direccionOrigen"),
+                json.getString("eMail"),
+                json.getString("contrasenia")
+        );
     }
 
 }

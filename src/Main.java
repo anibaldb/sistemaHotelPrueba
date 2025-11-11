@@ -1,6 +1,4 @@
-import Clases.Hotel;
-import Clases.JSONUtiles;
-import Clases.Usuario;
+import Clases.*;
 import Enums.TipoHabitacion;
 import Exceptions.ExceptionCredencialesInvalidas;
 import Exceptions.ExceptionHabitacionDuplicada;
@@ -9,7 +7,7 @@ import Exceptions.ExceptionUsuarioDuplicado;
 import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import Clases.ConsolaUtils;
+
 import org.json.JSONObject;
 
 public class Main {
@@ -26,13 +24,7 @@ public class Main {
         else { System.out.println("Creando un nuevo hotel vacío...");
                 miHotel = new Hotel("Gran Hotel");
 
-            try{
-                miHotel.RegistrarCliente("Anibal",29763522, "Argentina","Martinez 3340", "cli", "cli");
-                miHotel.registrarRecepcionista("Mabel",29040871,"Argentina","Martinez 3340", "recep", "recep");
-                miHotel.RegistrarAdministrador("Carlos",29880648,"Cuba","Martinez 3340", "admin", "admin");
-            }catch (ExceptionUsuarioDuplicado e){
-                System.out.println(e.getMessage());
-            }
+
 
             try {
                 miHotel.agregarHabitacion(TipoHabitacion.SIMPLE, 10000);
@@ -51,7 +43,34 @@ public class Main {
             }
         }
 
+
+
         miHotel.guardarEnJSON();
+
+        SistemaUsuarios sistemaUsuarios;
+        File archivoUsuarios = new File("usuarios.json");
+
+        if (archivoUsuarios.exists()) {
+            System.out.println("Cargando usuarios...");
+            String contenido = JSONUtiles.downloadJSON("usuarios");
+            JSONObject jsonUsuariosLeido = new JSONObject(contenido);
+            sistemaUsuarios = SistemaUsuarios.fromJSON(jsonUsuariosLeido);
+        } else {
+            System.out.println("Creando nuevo sistema de usuarios...");
+            sistemaUsuarios = new SistemaUsuarios();
+
+            // Si querés, podés registrar algunos usuarios por defecto aquí
+            try {
+                sistemaUsuarios.registrarCliente("Anibal", 29763522, "Argentina", "Martinez 3340", "cli", "cli");
+                sistemaUsuarios.registrarRecepcionista("Mabel", 29040871, "Argentina", "Martinez 3340", "recep", "recep");
+                sistemaUsuarios.registrarAdministrador("Carlos", 29880648, "Cuba", "Martinez 3340", "admin", "admin");
+            } catch (ExceptionUsuarioDuplicado e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+        sistemaUsuarios.guardarEnJSON();
 
 
 
