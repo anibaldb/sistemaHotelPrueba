@@ -17,7 +17,6 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         super(nombre, dni, origen, direccionOrigen, eMail, contrasenia, "Recepcionista");
     }
 
-
     @Override
     public String geteMail() {
         return super.geteMail();
@@ -29,6 +28,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         SistemaUsuarios sistemaUsuarios = new SistemaUsuarios();
         Scanner teclado = new Scanner(System.in);
         int opcion;
+
         do {
             String str = "";
             str += "Menu:\n";
@@ -47,9 +47,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
             switch (opcion) {
                 case 1 -> {
-
                     int dni = ConsolaUtils.leerEntero(teclado, "Ingrese DNI del cliente:");
-
 
                     Cliente cliente = hotel.getSistemaUsuarios().buscarPorDni(dni);
 
@@ -57,10 +55,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                         System.out.println("No se encontró cliente con ese DNI.");
                         System.out.print("¿Ingresar datos de cliente nuevo: \n");
 
-
                         System.out.print("Nombre: ");
                         String nombre = teclado.nextLine();
-
 
                         System.out.print("Origen: ");
                         String origen = teclado.nextLine();
@@ -76,39 +72,31 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
                         try {
                             sistemaUsuarios.registrarCliente(nombre, dni, origen, direccion, email, contra);
-
                             System.out.println("Cliente registrado exitosamente.");
+
                         } catch (ExceptionUsuarioDuplicado e) {
                             System.out.println(e.getMessage());
 
                         }
 
                     }else{
-                        System.out.println("Cliente existente.");
+                        System.out.println("El cliente ya existe...");
                     }
                 }
-
-
                 case 2 -> {
                     crearReserva(hotel);
-
                 }
                 case 3 -> {
                     mostrarHabitacionesDisponibles(hotel);
-
                 }
                 case 4 -> {
                     mostrarHabitacionesEstado(hotel);
-
                 }
                 case 5 -> {
                     realizarChkIn(hotel);
-
-
                 }
                 case 6 -> {
                     realizarChkOut(hotel);
-
                 }
                 case 7 -> {
                     System.out.println("Cancelar reserva por DNI (opcion 1) o por Id de reserva (opcion 2) ?");
@@ -122,40 +110,38 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                         case 2 -> {
                             cancelarReservaPorId(hotel);
                         }
-
                     }
                 }
                 case 0 -> {
-                    System.out.println("Cerrando sesion...");
+                    System.out.println("Cerrando sesión...");
                 }
                 default ->{
-                    System.out.println("ERROR, DEBE INGRESAR: 1,2,3,4,5,6,7 O 0");
+                    System.out.println("Opcion invalida...");
                 }
-
             }
-
         } while (opcion != 0);
 
     }
 
     @Override
     public void crearReserva(Hotel hotel) {
+
         Scanner teclado = new Scanner(System.in);
 
-
         int dniCliente = ConsolaUtils.leerEntero(teclado, "Ingrese el DNI del cliente: ");
-
 
         Cliente cliente = hotel.buscarClientePorDni(dniCliente);
 
         if (cliente == null) {
+
             System.out.println("No se encontró cliente con ese DNI.");
             System.out.print("¿Desea registrarlo? (s/n): ");
             String rta = teclado.nextLine();
+
             if (rta.equalsIgnoreCase("s")) {
+
                 System.out.print("Nombre: ");
                 String nombre = teclado.nextLine();
-
 
                 System.out.print("Origen: ");
                 String origen = teclado.nextLine();
@@ -195,7 +181,6 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             return;
         }
 
-
         List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
 
         if (disponibles.isEmpty()) {
@@ -204,17 +189,16 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
 
         System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
-        disponibles.forEach(System.out::println);
 
         System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
         int idSeleccionado = teclado.nextInt();
 
         Habitacion seleccionada = hotel.buscarHabitacionPorId(idSeleccionado);
+
         if (seleccionada == null || !disponibles.contains(seleccionada)) {
             System.out.println("El ID ingresado no corresponde a ninguna habitación disponible.");
             return;
         }
-
 
         Reserva nueva = new Reserva(hotel, dniCliente, idSeleccionado, entrada, salida);
 
@@ -238,6 +222,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     }
 
     private LocalDate leerFecha(String mensaje) {
+
         Scanner teclado = new Scanner(System.in);
         LocalDate fecha = null;
         boolean fechaValida = false;
@@ -253,7 +238,6 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                 System.out.println("Formato inválido. Ingrese la fecha en formato AAAA-MM-DD (por ejemplo: 2025-11-06).");
             }
         }
-
         return fecha;
     }
 

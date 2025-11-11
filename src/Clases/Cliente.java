@@ -92,12 +92,13 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
         Habitacion seleccionada = hotel.buscarHabitacionPorId(idSeleccionado);
 
-        if (seleccionada == null) {
+        if (seleccionada == null || !disponibles.contains(seleccionada)) {
             System.out.println("El ID ingresado no corresponde a ninguna habitación disponible.");
             return;
         }
 
         Reserva nueva = new Reserva(hotel,this.getDni(), idSeleccionado, entrada, salida);
+
         try{
             hotel.agregarReserva(nueva);
 
