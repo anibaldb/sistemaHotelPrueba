@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 public class ConsolaUtils {
     //Métodos para validar opciones que tienen que ser nuemros si o sí..
-    
+
     public static int leerEntero(Scanner scanner, String mensaje) {
         int numero = 0;
         boolean esValido = false;

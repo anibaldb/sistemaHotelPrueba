@@ -28,9 +28,9 @@ public class Habitacion {
     }
 
     public int getId() {
+
         return id;
     }
-
 
     public EstadoHabitacion getEstado() {
         return estado;
@@ -44,9 +44,6 @@ public class Habitacion {
         return precioXNoche;
     }
 
-
-
-
     public TipoHabitacion getTipo() {
         return tipo;
     }
@@ -54,8 +51,6 @@ public class Habitacion {
     public String getMotivoFueraServicio() {
         return motivoFueraServicio;
     }
-
-
 
     @Override
     public String toString() {
@@ -90,9 +85,5 @@ public class Habitacion {
             h.motivoFueraServicio = json.getString("motivoFueraServicio");
         return h;
     }
-
-
-
-
 
 }
