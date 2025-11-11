@@ -127,6 +127,9 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
         this.agregarReservaTomada(nueva);
 
+        hotel.getSistemaUsuarios().guardarEnJSON();
+        hotel.guardarEnJSON();
+
         System.out.println("\nReserva creada exitosamente!");
         System.out.println("Desde " + entrada + " hasta " + salida);
         System.out.println("Habitación: " + seleccionada.getId() + " - " + seleccionada.getTipo());
