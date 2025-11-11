@@ -141,6 +141,8 @@ public class Main {
                     }
 
 
+                }default -> {
+                    System.out.println("ERROR,ingrese 1,2,3 o 0");
                 }
             }
 
