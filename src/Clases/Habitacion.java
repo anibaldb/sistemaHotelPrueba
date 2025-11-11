@@ -23,25 +23,14 @@ public class Habitacion {
     public Habitacion() {}
 
 
-    public void setearMotivoFueraServicio(String motivo){
-        this.motivoFueraServicio=motivo;
+    public void setearMotivoFueraServicio(String motivo) {
+        this.motivoFueraServicio = motivo;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public TipoHabitacion getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoHabitacion tipo) {
-        this.tipo = tipo;
-    }
 
     public EstadoHabitacion getEstado() {
         return estado;
@@ -55,17 +44,13 @@ public class Habitacion {
         return precioXNoche;
     }
 
-    public void setPrecioXNoche(double precioXNoche) {
-        this.precioXNoche = precioXNoche;
-    }
+  
 
     public String getMotivoFueraServicio() {
         return motivoFueraServicio;
     }
 
-    public void setMotivoFueraServicio(String motivoFueraServicio) {
-        this.motivoFueraServicio = motivoFueraServicio;
-    }
+
 
     @Override
     public String toString() {
