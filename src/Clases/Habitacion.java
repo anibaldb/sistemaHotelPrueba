@@ -44,7 +44,10 @@ public class Habitacion {
         return precioXNoche;
     }
 
-  
+
+    public TipoHabitacion getTipo() {
+        return tipo;
+    }
 
     public String getMotivoFueraServicio() {
         return motivoFueraServicio;
