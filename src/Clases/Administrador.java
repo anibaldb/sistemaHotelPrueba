@@ -105,30 +105,33 @@ public class Administrador extends Usuario {
                     break;
                 }
                 case 3: {
-                    teclado.nextLine();
 
-                    System.out.println("Ingrese Id: ");
-                    String id= teclado.nextLine();
 
                     System.out.println("Ingrese tipo: 1-simple, 2-doble. 3-suite");
-                    TipoHabitacion tipo=null;
-                    int opcionTipo = ConsolaUtils.leerEntero(teclado, "Ingrese una opción (1, 2 o 3):");
-                    switch (opcionTipo){
-                        case 1: {
-                            tipo=TipoHabitacion.SIMPLE;
-                            break;
-                        }
+                    TipoHabitacion tipo = null;
+                    do {
+                        int opcionTipo = ConsolaUtils.leerEntero(teclado, "Ingrese una opción (1, 2 o 3):");
 
-                        case 2: {
-                            tipo=TipoHabitacion.DOBLE;
-                            break;
-                        }
+                        switch (opcionTipo) {
+                            case 1: {
+                                tipo = TipoHabitacion.SIMPLE;
+                                break;
+                            }
 
-                        case 3: {
-                            tipo=TipoHabitacion.SUITE;
-                            break;
+                            case 2: {
+                                tipo = TipoHabitacion.DOBLE;
+                                break;
+                            }
+
+                            case 3: {
+                                tipo = TipoHabitacion.SUITE;
+                                break;
+                            }
+                            default: {
+                                System.out.println("Error: Opción no válida. Intente de nuevo.");
+                            }
                         }
-                    }
+                    } while (tipo == null);
 
                     
                     double precio= ConsolaUtils.leerDouble(teclado, "Ingrese precio x noche: ");
