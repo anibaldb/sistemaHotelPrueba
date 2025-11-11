@@ -6,15 +6,14 @@ import java.util.List;
 public class ClaseGenerica <T>{
     private List<T> elementos;
 
-
     public ClaseGenerica() {
+
         this.elementos = new ArrayList<>();
     }
 
     public List<T> getElementos() {
         return elementos;
     }
-
 
     public void agregar(T objeto) throws Exception {
         if (elementos.contains(objeto)) {
@@ -24,14 +23,10 @@ public class ClaseGenerica <T>{
         elementos.add(objeto);
     }
 
-
-   
-
     public void recorrer() {
         for (T obj : elementos) {
             System.out.println(obj.toString());
         }
     }
-
 
 }

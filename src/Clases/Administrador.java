@@ -12,7 +12,6 @@ public class Administrador extends Usuario {
     public Administrador(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) {
         super(nombre, dni, origen, direccionOrigen, eMail, contrasenia,"Administrador");
 
-
     }
 
     @Override
