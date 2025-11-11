@@ -18,9 +18,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     }
 
 
-    public String  getTipoUsuario() {
-        return "Recepcionista";
-    }
+    
 
 
     @Override

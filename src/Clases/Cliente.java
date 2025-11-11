@@ -29,10 +29,7 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
     }
 
-    @Override
-    public String getTipoUsuario() {
-        return "Pasajero";
-    }
+
 
 
 
