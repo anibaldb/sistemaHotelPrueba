@@ -19,26 +19,8 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         this.reservasTomadas = new ArrayList<>();
     }
 
-
-
-
-    public void agregarReservaTomada(Reserva reserva) {
-
-        reservasTomadas.add(reserva);
-
-
-    }
-
-
-
-
-
-    public String mostrarReservasTomadas(){
-        String rta="";
-        for(Reserva r: reservasTomadas){
-            rta+=r.toString()+"\n";
-        }
-        return rta;
+    public List<Reserva> getReservasTomadas() {
+        return reservasTomadas;
     }
 
     @Override
@@ -57,42 +39,45 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
             switch (opcion){
                 case 1->{
-
                     crearReserva(hotel);
-
                 }
                 case 2->{
-
                     System.out.println(mostrarReservasTomadas());
-
                 }
                 case 0->{
-                    System.out.println("Cerrando sesion...");
+                    System.out.println("Cerrando sesión...");
                 }
             }
-
         }while (opcion!=0);
-
-
 
     }
 
+    public void agregarReservaTomada(Reserva reserva) {
+
+        reservasTomadas.add(reserva);
+
+    }
+
+    public String mostrarReservasTomadas(){
+        String rta="";
+        for(Reserva r: reservasTomadas){
+            rta+=r.toString()+"\n";
+        }
+        return rta;
+    }
 
     public void crearReserva(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("Creando reserva para el cliente logueado: " + getNombre());
 
-
         LocalDate entrada = leerFecha("Ingrese fecha de entrada (AAAA-MM-DD): ");
         LocalDate salida = leerFecha("Ingrese fecha de salida (AAAA-MM-DD): ");
-
 
         if (!salida.isAfter(entrada)) {
             System.out.println("La fecha de salida debe ser posterior a la fecha de entrada.");
             return;
         }
-
 
         List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
 
@@ -102,28 +87,23 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         }
         System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
 
-
-
-
         System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
         int idSeleccionado = teclado.nextInt();
 
         Habitacion seleccionada = hotel.buscarHabitacionPorId(idSeleccionado);
-
 
         if (seleccionada == null) {
             System.out.println("El ID ingresado no corresponde a ninguna habitación disponible.");
             return;
         }
 
-
         Reserva nueva = new Reserva(hotel,this.getDni(), idSeleccionado, entrada, salida);
         try{
             hotel.agregarReserva(nueva);
+
         }catch (Exception e){
             e.getMessage();
         }
-
 
         this.agregarReservaTomada(nueva);
 
@@ -158,11 +138,6 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         return fecha;
     }
 
-
-
-
-
-
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("nombre", getNombre());
@@ -181,10 +156,6 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         json.put("reservasTomadas", reservasArray);
 
         return json;
-    }
-
-    public List<Reserva> getReservasTomadas() {
-        return reservasTomadas;
     }
 
     public static Cliente fromJSON(JSONObject json) {
@@ -209,7 +180,6 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
         return c;
     }
-
 
 }
 
