@@ -45,8 +45,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             str += "0 - Salir\n\n";
             str += "Ingrese opcion: ";
             System.out.println(str);
-            opcion = teclado.nextInt();
-            teclado.nextLine();
+            opcion = ConsolaUtils.leerEntero(teclado, "Ingrese una opcion: ");
+
 
             switch (opcion) {
                 case 1 -> {
