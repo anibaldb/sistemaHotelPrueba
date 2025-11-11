@@ -138,6 +138,8 @@ public class Administrador extends Usuario {
                     try{
 
                         System.out.println(hotel.agregarHabitacion(tipo,precio));
+                        
+                        hotel.guardarEnJSON();
                     }catch (ExceptionHabitacionDuplicada e){
                         System.out.println(e.getMessage());
                     }
