@@ -52,7 +52,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
             switch (opcion) {
                 case 1 -> {
-                    
+
                     int dni = ConsolaUtils.leerEntero(teclado,"Ingrese DNI del cliente:");
 
 
@@ -115,9 +115,9 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                 }
                 case 7 ->{
                     System.out.println("Cancelar reserva por DNI (opcion 1) o por Id de reserva (opcion 2) ?");
-                    System.out.println("Ingrese opcion: ");
-                    int opcion2 = teclado.nextInt();
-                    teclado.nextLine();
+
+                    int opcion2 = ConsolaUtils.leerEntero(teclado, "Ingrese opcion: ");
+
                     switch (opcion2) {
                         case 1 -> {cancelarReservaPorDni(hotel);}
                         case 2 -> {cancelarReservaPorId(hotel);}
@@ -360,10 +360,10 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     public void cancelarReservaPorDni(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
-        System.out.print("Ingrese DNI del cliente para cancelar reserva: ");
-        int nroDni = teclado.nextInt();
 
-        teclado.nextLine();
+        int nroDni = ConsolaUtils.leerEntero(teclado,"Ingrese DNI del cliente para cancelar reserva:");
+
+        
 
         Cliente cliente=hotel.getSistemaUsuarios().buscarPorDni(nroDni);
 
