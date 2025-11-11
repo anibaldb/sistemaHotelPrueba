@@ -98,10 +98,6 @@ public class SistemaUsuarios {
         }
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
     public Cliente buscarPorDni(int dni) {
         for (Usuario u : usuarios) {
             if (u.getDni() == dni && u instanceof Cliente)
