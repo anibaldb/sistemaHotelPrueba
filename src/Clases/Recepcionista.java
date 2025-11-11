@@ -242,6 +242,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
     }
 
     public void mostrarHabitacionesDisponibles(Hotel hotel) {
+
         LocalDate entrada = leerFecha("Ingrese fecha de entrada (AAAA-MM-DD): ");
         LocalDate salida = leerFecha("Ingrese fecha de salida (AAAA-MM-DD): ");
 
@@ -251,12 +252,11 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             return;
         }
 
-
         List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
 
         if (disponibles.isEmpty()) {
             System.out.println("No hay habitaciones disponibles para esas fechas.");
-            return;
+
         } else {
             System.out.println("\nHabitaciones disponibles entre " + entrada + " y " + salida + ":\n");
             disponibles.forEach(System.out::println);
