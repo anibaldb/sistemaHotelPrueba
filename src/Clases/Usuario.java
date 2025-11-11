@@ -85,7 +85,7 @@ public abstract class Usuario {
     }
     public abstract void  mostrarMenu(Hotel hotel);
 
-    public abstract String getTipoUsuario();
+
 
 
 
