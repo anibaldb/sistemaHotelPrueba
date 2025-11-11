@@ -33,6 +33,30 @@ public class Hotel {
         return sistemaUsuarios;
     }
 
+    public void setSistemaUsuarios(SistemaUsuarios sistemaUsuarios) {
+        this.sistemaUsuarios = sistemaUsuarios;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public ClaseGenerica<Habitacion> getHabitaciones() {
+        return habitaciones;
+    }
+
+    public List<Habitacion>obtenerHabitaciones(){
+        return new ArrayList<>(habitaciones.getElementos());
+    }
+
+    public ClaseGenerica<Reserva> getReservas() {
+        return reservas;
+    }
+
     public void mostrarHabitaciones(){
         habitaciones.recorrer();
     }
@@ -40,8 +64,6 @@ public class Hotel {
     public void mostrarUsuarios(){
         sistemaUsuarios.listarUsuarios();
     }
-
-
 
     //METODOS PARA USUARIOS
     public String RegistrarCliente(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado, ExceptionUsuarioDuplicado {
@@ -51,6 +73,7 @@ public class Hotel {
     public String RegistrarAdministrador(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado, ExceptionUsuarioDuplicado {
         return sistemaUsuarios.registrarAdministrador(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
     }
+
     public String registrarRecepcionista(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado, ExceptionUsuarioDuplicado {
         return sistemaUsuarios.registrarRecepcionista(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
     }
@@ -67,38 +90,41 @@ public class Hotel {
         return sistemaUsuarios.buscarPorDni(dni);
     }
 
-
     //AGREGAR HABITACION
     public String agregarHabitacion(TipoHabitacion tipo, double precioXNoche ) throws ExceptionHabitacionDuplicada {
-
 
         Habitacion habitacion=new Habitacion(tipo,precioXNoche);
         try {
             habitaciones.agregar(habitacion);
+
         }catch (Exception e){
             e.getMessage();
         }
-
-
 
         return "Habitacion agregada correctamente";
     }
 
     public List<Habitacion> obtenerHabitacionesDisponibles(LocalDate entrada, LocalDate salida) {
+
         List<Habitacion> disponibles = new ArrayList<>();
+
         for (Habitacion h : habitaciones.getElementos()) {
             boolean libre = true;
             for (Reserva r : reservas.getElementos()) {
-                if (r.getEstadoReserva() != EstadoReserva.PENDIENTE) continue;
+                if (r.getEstadoReserva() != EstadoReserva.PENDIENTE)
+                    continue;
+
                 if (r.getHabitacion().equals(h)) {
-                    boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) ||
-                            entrada.isAfter(r.getFechaEgreso().minusDays(1)));
+
+                    boolean seCruzan = !(salida.isBefore(r.getFechaInicio()) || entrada.isAfter(r.getFechaEgreso().minusDays(1)));
+
                     if (seCruzan) {
                         libre = false;
                         break;
                     }
                 }
             }
+
             if (libre) disponibles.add(h);
         }
         return disponibles;
@@ -115,7 +141,6 @@ public class Hotel {
     }
     //METODO PARA BUSCAR UNA RESERVA POR DNI
 
-
     public List<Reserva> buscarReservasPorDni(int dni) {
         List<Reserva> resultado = new ArrayList<>();
         for (Reserva r : this.reservas.getElementos()) {
@@ -126,20 +151,20 @@ public class Hotel {
         return resultado;
     }
 
-
     //CANCELAR RESERVA PASANDO SU ID
     public boolean cancelarReserva(int idReserva) {
+
         for (Reserva r : this.reservas.getElementos()) {
             if (r.getId() == idReserva) {
                 if (r.getEstadoReserva() == EstadoReserva.CANCELADA) {
-                    return false; // Ya estaba cancelada
+                    return false;
                 } else {
                     r.setEstadoReserva(EstadoReserva.CANCELADA);
                     return true;
                 }
             }
         }
-        return false; // No encontrada
+        return false;
     }
 
     //METODO QUE BUSCA HABITACION POR ID, DEVUELVE LA HABITACION SINO NULL
@@ -152,43 +177,10 @@ public class Hotel {
         return null;
     }
 
-
-        public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public ClaseGenerica<Habitacion> getHabitaciones() {
-        return habitaciones;
-    }
-
-    public List<Habitacion>obtenerHabitaciones(){
-        return new ArrayList<>(habitaciones.getElementos());
-    }
-
-
-    public ClaseGenerica<Reserva> getReservas() {
-        return reservas;
-    }
-
-
-
-    public void setSistemaUsuarios(SistemaUsuarios sistemaUsuarios) {
-        this.sistemaUsuarios = sistemaUsuarios;
-    }
-
-
-
-
-
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("nombre", nombre);
 
-        // 🔹 Guardar habitaciones
         JSONArray habitacionesArray = new JSONArray();
         for (Habitacion h : habitaciones.getElementos()) {
             habitacionesArray.put(h.toJSON());
@@ -196,7 +188,6 @@ public class Hotel {
         json.put("habitaciones", habitacionesArray);
         json.put("nextIdHabitacion", Habitacion.getNextId());
 
-        // 🔹 Guardar reservas
         JSONArray reservasArray = new JSONArray();
         for (Reserva r : reservas.getElementos()) {
             reservasArray.put(r.toJSON());
@@ -210,7 +201,6 @@ public class Hotel {
     public static Hotel fromJSON(JSONObject json) {
         Hotel hotel = new Hotel(json.getString("nombre"));
 
-
         JSONArray habitacionesArray = json.getJSONArray("habitaciones");
         for (int i = 0; i < habitacionesArray.length(); i++) {
             JSONObject habJson = habitacionesArray.getJSONObject(i);
@@ -222,7 +212,6 @@ public class Hotel {
             }
         }
         Habitacion.setNextId(json.getInt("nextIdHabitacion"));
-
 
         JSONArray reservasArray = json.getJSONArray("reservas");
         for (int i = 0; i < reservasArray.length(); i++) {
@@ -243,8 +232,5 @@ public class Hotel {
         JSONObject jsonHotel = this.toJSON();
         JSONUtiles.uploadJSON(jsonHotel, "hotelDatos");
     }
-
-
-
 
 }
