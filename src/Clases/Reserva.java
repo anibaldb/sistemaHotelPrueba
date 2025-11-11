@@ -46,28 +46,20 @@ public class Reserva {
     }
 
     public Habitacion getHabitacion() {
-        return habitacion;
-    }
+        return habitacion;}
 
-    public void setHabitacion(Habitacion habitacion) {
-        this.habitacion = habitacion;
-    }
+
 
     public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
 
     public LocalDate getFechaEgreso() {
         return fechaEgreso;
     }
 
-    public void setFechaEgreso(LocalDate fechaEgreso) {
-        this.fechaEgreso = fechaEgreso;
-    }
+
 
     public Cliente getCliente() {
         return cliente;
@@ -81,17 +73,12 @@ public class Reserva {
         return cantNoches;
     }
 
-    public void setCantNoches(long cantNoches) {
-        this.cantNoches = cantNoches;
-    }
+
 
     public double getPrecioReserva() {
         return precioReserva;
     }
 
-    public void setPrecioReserva(double precioReserva) {
-        this.precioReserva = precioReserva;
-    }
 
     public EstadoReserva getEstadoReserva() {
         return estadoReserva;

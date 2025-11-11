@@ -61,10 +61,7 @@ public abstract class Usuario {
     public String getDireccionOrigen() {
         return direccionOrigen;
     }
-
-    public void setDireccionOrigen(String direccionOrigen) {
-        this.direccionOrigen = direccionOrigen;
-    }
+    
 
     public String geteMail() {
         return eMail;
@@ -75,9 +72,7 @@ public abstract class Usuario {
     }
 
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
+
 
     @Override
     public String toString() {
