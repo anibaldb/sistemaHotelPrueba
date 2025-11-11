@@ -15,9 +15,6 @@ public class ClaseGenerica <T>{
         return elementos;
     }
 
-    public void setElementos(List<T> elementos) {
-        this.elementos = elementos;
-    }
 
     public void agregar(T objeto) throws Exception {
         if (elementos.contains(objeto)) {
@@ -28,9 +25,7 @@ public class ClaseGenerica <T>{
     }
 
 
-    public boolean eliminarElemento( T objeto)  {
-        return elementos.remove(objeto);
-    }
+   
 
     public void recorrer() {
         for (T obj : elementos) {
