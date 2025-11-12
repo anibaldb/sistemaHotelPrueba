@@ -13,17 +13,19 @@ import org.json.JSONObject;
 public class Main {
     public static void main(String[] args) {
 
-
+        // ARRANQUE: CARGAMOS EL HOTEL
         Hotel miHotel;
         File archivo = new File("hotelDatos.json");
-
+        // Chequea si ya existe un archivo de guardado
         if (archivo.exists()) {
+            // Si existe, lo lee y "reconstruye" el hotel desde el JSON
             System.out.println("Cargando datos del hotel...");
             String contenido = JSONUtiles.downloadJSON("hotelDatos");
             JSONObject jsonHotelLeido = new JSONObject(contenido);
             miHotel = Hotel.fromJSON(jsonHotelLeido); }
 
         else {
+            // Si no existe, es la primera vez. Crea un hotel de cero
              System.out.println("Creando un nuevo hotel vacío...");
              miHotel = new Hotel("Gran Hotel");
 
@@ -43,10 +45,10 @@ public class Main {
                  e.getMessage();
              }*/
         }
-
+        //  ARRANQUE: CARGAMOS LOS USUARIOS
         SistemaUsuarios sistemaUsuarios;
         File archivoUsuarios = new File("usuarios.json");
-
+        // Hace lo mismo que con el hotel, pero para los usuarios
         if (archivoUsuarios.exists()) {
              System.out.println("Cargando usuarios...");
              String contenido = JSONUtiles.downloadJSON("usuarios");
@@ -54,6 +56,7 @@ public class Main {
              sistemaUsuarios = SistemaUsuarios.fromJSON(jsonUsuariosLeido);
 
         } else {
+            // Si no hay usuarios guardados, crea el sistema vacío
              System.out.println("Creando nuevo sistema de usuarios...");
              sistemaUsuarios = new SistemaUsuarios();
 
@@ -65,9 +68,10 @@ public class Main {
                  System.out.println(e.getMessage());
              }*/
         }
-
+        // Se asegura de que siempre exista un admin por si se borro el JSON
         sistemaUsuarios.crearAdminPorDefecto();
-
+        // Aca le "conectamos" el sistema de usuarios cargado o nuevo al hotel
+        // Asi, miHotel.login() funciona, porque ahora "conoce" a los usuarios.
         miHotel.setSistemaUsuarios(sistemaUsuarios);
         Scanner teclado=new Scanner(System.in);
         int opcion = -1;
@@ -139,10 +143,11 @@ public class Main {
                 }
             }
         }while(opcion!=0);
-
+        // El usuario puso 0, así que salimos del bucle
+        // Antes de cerrar, guardamos todo lo que se hizo
         System.out.println("Guardando datos del hotel...");
-        miHotel.guardarEnJSON();
-        miHotel.getSistemaUsuarios().guardarEnJSON();
+        miHotel.guardarEnJSON();// Guarda hotelDatos.json
+        miHotel.getSistemaUsuarios().guardarEnJSON(); // Guarda usuarios.json
         System.out.println("Datos guardados correctamente..");
     }
 
