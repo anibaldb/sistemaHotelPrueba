@@ -22,6 +22,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         return super.geteMail();
     }
 
+
+    //METODO DE COMO FUNCIONA EL MENU DE UN RECEPCIONISTA
     @Override
     public void mostrarMenu(Hotel hotel) {
 
@@ -122,6 +124,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
     }
 
+
+    //METODO PARA QUE UN RECEPCIONISTA CREE UNA RESERVA
     @Override
     public void crearReserva(Hotel hotel) {
 
@@ -180,6 +184,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             return;
         }
 
+        //METODO QUE HICIMOS EN HOTEL QUE DEVUELVE LA LISTA DE HABITACIONES DISPONIBLES
         List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
 
         if (disponibles.isEmpty()) {
@@ -192,6 +197,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
         int idSeleccionado = teclado.nextInt();
 
+        //METODO QUE DEVUELVE UNA HABITACION MANDANDO SU ID
         Habitacion seleccionada = hotel.buscarHabitacionPorId(idSeleccionado);
 
         if (seleccionada == null || !disponibles.contains(seleccionada)) {
@@ -199,6 +205,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             return;
         }
 
+        //CREAMOS UNA RESERVA
         Reserva nueva = new Reserva(hotel, dniCliente, idSeleccionado, entrada, salida);
 
         try {
@@ -209,6 +216,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
         cliente.agregarReservaTomada(nueva);
 
+        //GUARDAMOS LA RESERVA EN EL ARCHIVO A LA HORA DE CREARLO
         hotel.getSistemaUsuarios().guardarEnJSON();
         hotel.guardarEnJSON();
 
@@ -220,6 +228,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         System.out.println("Monto: $" + nueva.getPrecioReserva());
     }
 
+    //METODO AUXILIAR PARA PODER USARLO EN crearReserva
     private LocalDate leerFecha(String mensaje) {
 
         Scanner teclado = new Scanner(System.in);
@@ -240,6 +249,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         return fecha;
     }
 
+    //METODO QUE MUESTRA LAS HABITACIONES DISPONIBLES
     public void mostrarHabitacionesDisponibles(Hotel hotel) {
 
         LocalDate entrada = leerFecha("Ingrese fecha de entrada (AAAA-MM-DD): ");
@@ -250,6 +260,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             return;
         }
 
+        //METODO DE HOTEL QUE DEVUELVE UNA LISTA DE HABITACIONES
         List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
 
         if (disponibles.isEmpty()) {
@@ -262,6 +273,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
     }
 
+    //METODO QUE MUESTRA EL ESTADO DE LAS HABITACIONES Y PERMITE CAMBIARLES EL ESTADO
     public void mostrarHabitacionesEstado(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
@@ -292,6 +304,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         int idHabitacion = teclado.nextInt();
         teclado.nextLine();
 
+
+        //CREAMOS UNA HABITACION Y LLAMAMOS AL METODO QUE NOS DEVUELVUE UNA HAITACION PASANDO SU ID/NUMERO
         Habitacion habitacion = hotel.buscarHabitacionPorId(idHabitacion);
 
         if (habitacion == null) {
@@ -300,6 +314,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
 
 
+        //CAMBIAMOS EL ESTADO
         System.out.println("\nElija nuevo estado:");
         System.out.println("1 - Disponible");
         System.out.println("2 - Desinfección");
@@ -332,12 +347,15 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         System.out.println("Estado de la habitación actualizado correctamente.");
     }
 
+
+    //METODO QUE CANCELA UNA RESERVA PASANDO SU ID
     public void cancelarReservaPorDni(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
 
         int nroDni = ConsolaUtils.leerEntero(teclado, "Ingrese DNI del cliente para cancelar reserva:");
 
+        //CREAMOS UN CLIENTE Y USAMOS EL METODO AUXILIAR DE HOTEL QUE NOS DEVUELVE UN CLIENTE PASANDO SU ID
         Cliente cliente = hotel.buscarClientePorDni(nroDni);
 
         if (cliente == null) {
@@ -371,6 +389,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
 
     }
 
+    //METODO QUE CANCELA UNA RESERVA POR ID
     public void cancelarReservaPorId(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
@@ -399,6 +418,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
     }
 
+    //METODO PARA REALIZAR CHECKIN
     public void realizarChkIn(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
@@ -406,6 +426,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         int nroReserva = ConsolaUtils.leerEntero(teclado,"Ingrese número de reserva para realizar CHECK-IN:");
         teclado.nextLine();
 
+        //CREAMOS UNA RESERVA Y LLAMAMOS EL METODO QUE NOS DEVUELVE LA HABITACION POR ID
         Reserva reserva = hotel.buscarReservaPorId(nroReserva);
 
         if (reserva == null) {
@@ -427,6 +448,8 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         }
     }
 
+    //METODO PARA REALIZAR CHECKOUT
+
     public void realizarChkOut(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
@@ -434,6 +457,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
         int nroReserva = ConsolaUtils.leerEntero(teclado,"Ingrese número de reserva para realizar CHECK-OUT:");
         teclado.nextLine();
 
+        //LLAMAMOS AL METODO QUE NOS DEVUELVE UNA RESERVA POR NUMERO DE ID DE RESERVA
         Reserva reserva = hotel.buscarReservaPorId(nroReserva);
 
         if (reserva == null) {
@@ -441,6 +465,7 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             return;
         }
 
+        //SE CANCELA LA RESERVA SI NO ESTABA CANCELADA ANTES O ESTABA TERMINADA
         if (reserva.getEstadoReserva() == EstadoReserva.TERMINADA) {
             System.out.println("La reserva ya está terminada.");
 

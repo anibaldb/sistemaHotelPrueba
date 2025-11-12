@@ -76,6 +76,7 @@ public abstract class Usuario {
     }
     public abstract void  mostrarMenu(Hotel hotel);
 
+    //METODO PARA VALIDAR LA CONTRA DE UN USUARIO EN EL LOGIN
     public boolean validarContrasenia(String contrasenia) {
         if (this.contrasenia.equals(contrasenia)) {
             return true;

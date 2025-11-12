@@ -28,6 +28,7 @@ public class SistemaUsuarios {
         this.usuarioLogueado = null;
     }
 
+    //METODO DE LOGIN DE USUARIO
     public Usuario login(String eMail, String contrasenia) throws ExceptionCredencialesInvalidas {
         for (Usuario u : usuarios) {
             if (u.geteMail().equalsIgnoreCase(eMail) && u.validarContrasenia(contrasenia)) {
@@ -38,6 +39,8 @@ public class SistemaUsuarios {
         throw new ExceptionCredencialesInvalidas("Email o contraseña invalida");
     }
 
+    //METODO PARA REGISTRAR UN ADMINISTRADOR
+
     public String  registrarAdministrador(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado {
 
         if (verificarDuplicado(dni)) {
@@ -45,11 +48,14 @@ public class SistemaUsuarios {
         }
         Usuario usuario = new Administrador(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
         usuarios.add(usuario);
+        //guardamos el admin en el archivo
         guardarEnJSON();
 
         return "Administrador registrado con éxito...";
     }
 
+
+    //METODO PARA REGISTRAR UN CLIENTE
     public String  registrarCliente(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado {
 
         if (verificarDuplicado(dni)) {
@@ -63,6 +69,7 @@ public class SistemaUsuarios {
         return "Cliente registrado con éxito...";
     }
 
+    //METODO PARA REGISTRAR RECEPCIONISTA
     public String  registrarRecepcionista(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado {
 
         if (verificarDuplicado(dni)) {
@@ -75,6 +82,8 @@ public class SistemaUsuarios {
         return "Recepcionista registrado con éxito...";
     }
 
+
+    //METODO AUXILIAR PARA VERIFICAR SI HAY UN DNI DUPLICADO
     public boolean verificarDuplicado(int dni) {
         for (Usuario u : usuarios) {
             if (u.getDni() == dni) {
@@ -84,12 +93,14 @@ public class SistemaUsuarios {
         return false;
     }
 
+    //METODO PARA LISTAR LOS USUARIOS
     public void listarUsuarios(){
         for (Usuario u : usuarios) {
             System.out.println(u.toString());
         }
     }
 
+    //METODO QUE DEVUELVE UN CIENTE MANDANDO SU DNI
     public Cliente buscarPorDni(int dni) {
         for (Usuario u : usuarios) {
             if (u.getDni() == dni && u instanceof Cliente)
@@ -98,6 +109,7 @@ public class SistemaUsuarios {
         return null;
     }
 
+    //METODO PARA AGREGAR UN USUARIO
     public void agregarUsuario(Usuario usuario) {
         this.usuarios.add(usuario);
     }

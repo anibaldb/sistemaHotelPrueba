@@ -23,6 +23,8 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         return reservasTomadas;
     }
 
+
+    //METODO DE COMO FUNCIONA EL MENU DE UN CLIENTE
     @Override
     public void mostrarMenu(Hotel hotel) {
         Scanner teclado=new Scanner(System.in);
@@ -52,12 +54,18 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
     }
 
+
+
+    //METODO SIMPLE PARA QUE UN CLIENTE AGREGUE UNA RESERVA
     public void agregarReservaTomada(Reserva reserva) {
 
         reservasTomadas.add(reserva);
 
     }
 
+
+
+    //METODO QUE MUESTRA TODAS LAS RESERVAS QUE HAY
     public String mostrarReservasTomadas(){
         String rta="";
         for(Reserva r: reservasTomadas){
@@ -66,6 +74,8 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         return rta;
     }
 
+
+    // METODO QUE CREA UNA RESERVA
     public void crearReserva(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
 
@@ -79,6 +89,7 @@ public class Cliente extends Usuario implements MetodosUsuarios{
             return;
         }
 
+        //LLAMA AL METODO DE HOTEL QUE DEVUELVE LAS HABITACIONES QUE HAY DISPONIBLES
         List<Habitacion> disponibles = hotel.obtenerHabitacionesDisponibles(entrada, salida);
 
         if (disponibles.isEmpty()) {
@@ -93,6 +104,7 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         System.out.print("\nIngrese el ID de la habitación que desea reservar: ");
         int idSeleccionado = teclado.nextInt();
 
+        //SE LLAMA A METODO DE HOTEL QUE DEVUELVE UNA HABITACION PASANDO SU ID O NUMERO
         Habitacion seleccionada = hotel.buscarHabitacionPorId(idSeleccionado);
 
         if (seleccionada == null || !disponibles.contains(seleccionada)) {
@@ -111,6 +123,8 @@ public class Cliente extends Usuario implements MetodosUsuarios{
 
         this.agregarReservaTomada(nueva);
 
+
+        //GUARDA LA RESERVA EN EL ARCHIVO AL MOMENTO DE CREARLA
         hotel.getSistemaUsuarios().guardarEnJSON();
         hotel.guardarEnJSON();
 
@@ -122,6 +136,8 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         System.out.println("Monto: $"+nueva.getPrecioReserva());
     }
 
+
+    //METODO PARA USA EN CREAR RESERVA
     private LocalDate leerFecha(String mensaje) {
         Scanner teclado = new Scanner(System.in);
         LocalDate fecha = null;
@@ -142,6 +158,7 @@ public class Cliente extends Usuario implements MetodosUsuarios{
         return fecha;
     }
 
+    //JSON PARA SERIALIZAR LA INFO
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("nombre", getNombre());

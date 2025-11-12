@@ -15,6 +15,7 @@ public class ClaseGenerica <T>{
         return elementos;
     }
 
+    //METODO QUE AGREGA ELEMENTO A LA LISTA
     public void agregar(T objeto) throws Exception {
         if (elementos.contains(objeto)) {
             throw new Exception("El elemento ya existe en la base de datos");
@@ -23,6 +24,7 @@ public class ClaseGenerica <T>{
         elementos.add(objeto);
     }
 
+    //METODO QUE RECORRE UNA LISTA
     public void recorrer() {
         for (T obj : elementos) {
             System.out.println(obj.toString());

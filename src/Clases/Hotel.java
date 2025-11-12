@@ -65,7 +65,7 @@ public class Hotel {
         sistemaUsuarios.listarUsuarios();
     }
 
-    //METODOS PARA USUARIOS
+    //METODOS PARA PARA REGISTRAR USUARIOS
     public String RegistrarCliente(String nombre, int dni, String origen, String direccionOrigen, String eMail, String contrasenia) throws ExceptionUsuarioDuplicado, ExceptionUsuarioDuplicado {
         return sistemaUsuarios.registrarCliente(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
     }
@@ -78,6 +78,7 @@ public class Hotel {
         return sistemaUsuarios.registrarRecepcionista(nombre, dni, origen, direccionOrigen, eMail, contrasenia);
     }
 
+    //METODO DE LOGIN QUE SE USA EN EL MAIN
     public Usuario login(String eMail, String contrasenia) throws ExceptionCredencialesInvalidas{
         return sistemaUsuarios.login(eMail, contrasenia);
     }
@@ -86,6 +87,7 @@ public class Hotel {
         reservas.agregar(r);
     }
 
+    //METODO PARA BUSCAR CLIENTE POR DNI Y USAR EN HOTEL Y NO ROMPER ENCAPSULAMIENTO
     public Cliente buscarClientePorDni(int dni){
         return sistemaUsuarios.buscarPorDni(dni);
     }
@@ -104,6 +106,7 @@ public class Hotel {
         return "Habitacion agregada correctamente";
     }
 
+    //METODO QUE DEVUELVE UNA LISTA DE HABITACIONES PARA USAR EN HOTEL
     public List<Habitacion> obtenerHabitacionesDisponibles(LocalDate entrada, LocalDate salida) {
 
         List<Habitacion> disponibles = new ArrayList<>();

@@ -14,6 +14,8 @@ public class Administrador extends Usuario {
 
     }
 
+
+    //METODO DE FUNCIONIAMIENTO DEL MENU CON SWITCH
     @Override
     public void  mostrarMenu(Hotel hotel) {
 
@@ -160,14 +162,19 @@ public class Administrador extends Usuario {
 
     }
 
+    //METODO QUE MUESTRA LOS USUARIOS DEL HOTEL
+
     public void  mostrarUsuarios(Hotel hotel){
       hotel.mostrarUsuarios();
     }
 
+    //METODO QUE MUESTRA LAS HABITACIONES DEL HOTEL
     public void  mostrarHabitaciones(Hotel hotel){
         hotel.mostrarHabitaciones();
     }
 
+
+    //METODO PARA REALIZAR UN BACKUP CUANDO EL ADMINISTRADOR QUIERA EN UN ARCHIVO DISTINTO
     public void realizarBackup(Hotel hotel){
 
         JSONObject jsonUsuarios = hotel.getSistemaUsuarios().toJSON();
@@ -180,6 +187,7 @@ public class Administrador extends Usuario {
         System.out.println("Backup generado correctamente.");
     }
 
+    //METODO TOJSON DE ADMINISTRADOR
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         json.put("nombre", getNombre());
@@ -192,6 +200,9 @@ public class Administrador extends Usuario {
         return json;
     }
 
+
+
+    // CONSTRUCTOR PARA DESERIALIZACION DEL ADMIN
     public static Administrador fromJSON(JSONObject json) {
         return new Administrador(
                 json.getString("nombre"),
