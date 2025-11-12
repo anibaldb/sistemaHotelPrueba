@@ -35,9 +35,9 @@ public class Cliente extends Usuario implements MetodosUsuarios{
             System.out.println("1- Crear Reserva\n");
             System.out.println("2- Ver Historial reservas\n");
             System.out.println("0- Salir\n");
-            System.out.println("Ingrese opcion: ");
-            opcion= teclado.nextInt();
-            teclado.nextLine();
+
+            opcion= ConsolaUtils.leerEntero(teclado,"Ingrese opcion: ");
+
 
             switch (opcion){
                 case 1->{
@@ -48,6 +48,10 @@ public class Cliente extends Usuario implements MetodosUsuarios{
                 }
                 case 0->{
                     System.out.println("Cerrando sesión...");
+                    break;
+                }
+                default -> {
+                    System.out.println("Opcion invalida");
                 }
             }
         }while (opcion!=0);
