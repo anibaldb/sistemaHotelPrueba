@@ -27,7 +27,7 @@ public class Main {
              System.out.println("Creando un nuevo hotel vacío...");
              miHotel = new Hotel("Gran Hotel");
 
-             try {
+            /* try {
                  miHotel.agregarHabitacion(TipoHabitacion.SIMPLE, 10000);
                  miHotel.agregarHabitacion(TipoHabitacion.SIMPLE, 10000);
                  miHotel.agregarHabitacion(TipoHabitacion.DOBLE, 15000);
@@ -41,7 +41,7 @@ public class Main {
 
              }catch (ExceptionHabitacionDuplicada e){
                  e.getMessage();
-             }
+             }*/
         }
 
         SistemaUsuarios sistemaUsuarios;
@@ -57,13 +57,13 @@ public class Main {
              System.out.println("Creando nuevo sistema de usuarios...");
              sistemaUsuarios = new SistemaUsuarios();
 
-             try {
+            /* try {
                  sistemaUsuarios.registrarCliente("Anibal", 29763522, "Argentina", "Martinez 3340", "cli", "cli");
                  sistemaUsuarios.registrarRecepcionista("Mabel", 29040871, "Argentina", "Martinez 3340", "recep", "recep");
                  sistemaUsuarios.registrarAdministrador("Carlos", 29880648, "Cuba", "Martinez 3340", "admin", "admin");
              } catch (ExceptionUsuarioDuplicado e) {
                  System.out.println(e.getMessage());
-             }
+             }*/
         }
 
         sistemaUsuarios.crearAdminPorDefecto();
@@ -129,7 +129,8 @@ public class Main {
 
                     }
 
-                }default -> {
+                }
+                default -> {
                     System.out.println("Opcion invalida, intente nuevamente...");
                 }
             }

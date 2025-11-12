@@ -111,7 +111,6 @@ public class SistemaUsuarios {
             }
         }
 
-
         Usuario admin = new Administrador(
                 "Administrador del sistema",
                 1111111,
@@ -123,7 +122,6 @@ public class SistemaUsuarios {
 
         usuarios.add(admin);
         guardarEnJSON();
-
     }
 
     public JSONObject toJSON() {
