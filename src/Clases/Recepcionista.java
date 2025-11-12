@@ -40,7 +40,6 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
             str += "6 - Realizar CHECK-OUT\n";
             str += "7 - Cancelar reserva\n";
             str += "0 - Salir\n\n";
-            str += "Ingrese opcion: ";
             System.out.println(str);
             opcion = ConsolaUtils.leerEntero(teclado, "Ingrese una opcion: ");
 
@@ -49,11 +48,11 @@ public class Recepcionista extends Usuario implements MetodosUsuarios {
                 case 1 -> {
                     int dni = ConsolaUtils.leerEntero(teclado, "Ingrese DNI del cliente:");
 
-                    Cliente cliente = hotel.getSistemaUsuarios().buscarPorDni(dni);
+                    Cliente cliente = hotel.buscarClientePorDni(dni);
 
                     if (cliente == null) {
                         System.out.println("No se encontró cliente con ese DNI.");
-                        System.out.print("¿Ingresar datos de cliente nuevo: \n");
+                        System.out.print("Ingresar datos de cliente nuevo: \n");
 
                         System.out.print("Nombre: ");
                         String nombre = teclado.nextLine();
