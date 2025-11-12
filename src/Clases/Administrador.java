@@ -31,13 +31,13 @@ public class Administrador extends Usuario {
             System.out.println("5 - Listar habitaciones");
             System.out.println("6 - Realizar Backup");
             System.out.println("0 - Salir");
-            System.out.println("Ingrese opcion: (0 para salir del sistema) ");
 
-            opcion= teclado.nextInt();
+
+            opcion= ConsolaUtils.leerEntero(teclado,"Ingrese opcion: (0 para salir del sistema)");
 
             switch (opcion){
                 case 1: {
-                    teclado.nextLine();
+
 
                     System.out.println("Ingrese nombre: ");
                     String nombre= teclado.nextLine();
@@ -66,7 +66,7 @@ public class Administrador extends Usuario {
                     break;
                 }
                 case 2: {
-                    teclado.nextLine();
+
 
                     System.out.println("Ingrese nombre: ");
                     String nombre= teclado.nextLine();
@@ -152,6 +152,7 @@ public class Administrador extends Usuario {
                 }
                 case 0: {
                     System.out.println("Saliendo...");}
+                break;
                 default: {
                     System.out.println("Opcion invalida");
 
