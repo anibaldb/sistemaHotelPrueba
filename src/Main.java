@@ -79,7 +79,7 @@ public class Main {
             System.out.println("0- Salir\n");
 
             opcion = ConsolaUtils.leerEntero(teclado, "Ingrese opcion: ");
-            teclado.nextLine();
+
 
             switch (opcion) {
                 case 1 -> {
@@ -105,7 +105,7 @@ public class Main {
                     String nombre = teclado.nextLine();
 
                     int dni = ConsolaUtils.leerEntero(teclado, "Ingrese dni:");
-                    teclado.nextLine();
+                    
 
                     System.out.println("Ingrese origen: ");
                     String origen = teclado.nextLine();
