@@ -61,7 +61,6 @@ public abstract class Usuario {
     public String getDireccionOrigen() {
         return direccionOrigen;
     }
-    
 
     public String geteMail() {
         return eMail;
@@ -71,18 +70,11 @@ public abstract class Usuario {
         this.eMail = eMail;
     }
 
-
-
-
     @Override
     public String toString() {
         return "Nombre: " + nombre +"| DNI: " + dni + "| Origen: " + origen +"| Direccion: " + direccionOrigen + "| eMail: : " + eMail +"| Tipo: "+tipo;
     }
     public abstract void  mostrarMenu(Hotel hotel);
-
-
-
-
 
     public boolean validarContrasenia(String contrasenia) {
         if (this.contrasenia.equals(contrasenia)) {
@@ -90,7 +82,6 @@ public abstract class Usuario {
         }
         return false;
     }
-
 
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
@@ -115,7 +106,6 @@ public abstract class Usuario {
         return json;
     }
 
-
     public static Usuario fromJSON(JSONObject json) {
         String tipo = json.getString("tipo");
         switch (tipo) {
@@ -130,15 +120,6 @@ public abstract class Usuario {
 
         }
     }
-
-
-
-
-
-
-
-
-
 
 }
 
