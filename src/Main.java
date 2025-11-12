@@ -129,6 +129,10 @@ public class Main {
 
                     }
 
+                }case 0 ->{
+                    // para que el bucle while(opcion!=0) pueda terminar
+                    // sin imprimir un error
+                    break;
                 }
                 default -> {
                     System.out.println("Opcion invalida, intente nuevamente...");
