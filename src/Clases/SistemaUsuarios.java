@@ -102,6 +102,30 @@ public class SistemaUsuarios {
         this.usuarios.add(usuario);
     }
 
+    public void crearAdminPorDefecto() {
+
+        for (Usuario u : usuarios) {
+            if (u.geteMail().equalsIgnoreCase("admin")) {
+
+                return;
+            }
+        }
+
+
+        Usuario admin = new Administrador(
+                "Administrador del sistema",
+                1111111,
+                "Argentina",
+                "N/A",
+                "admin",
+                "admin"
+        );
+
+        usuarios.add(admin);
+        guardarEnJSON();
+
+    }
+
     public JSONObject toJSON() {
         JSONObject json = new JSONObject();
         JSONArray usuariosArray = new JSONArray();

@@ -66,6 +66,8 @@ public class Main {
              }
         }
 
+        sistemaUsuarios.crearAdminPorDefecto();
+
         miHotel.setSistemaUsuarios(sistemaUsuarios);
         Scanner teclado=new Scanner(System.in);
         int opcion = -1;
