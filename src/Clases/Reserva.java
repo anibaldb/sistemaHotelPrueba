@@ -40,7 +40,6 @@ public class Reserva {
     public Reserva(){}
 
 
-
     public int getId() {
         return id;
     }
@@ -48,18 +47,13 @@ public class Reserva {
     public Habitacion getHabitacion() {
         return habitacion;}
 
-
-
     public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-
     public LocalDate getFechaEgreso() {
         return fechaEgreso;
     }
-
-
 
     public Cliente getCliente() {
         return cliente;
@@ -73,12 +67,9 @@ public class Reserva {
         return cantNoches;
     }
 
-
-
     public double getPrecioReserva() {
         return precioReserva;
     }
-
 
     public EstadoReserva getEstadoReserva() {
         return estadoReserva;
