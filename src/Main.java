@@ -23,7 +23,7 @@ public class Main {
             String contenido = JSONUtiles.downloadJSON("hotelDatos");
             JSONObject jsonHotelLeido = new JSONObject(contenido);
             miHotel = Hotel.fromJSON(jsonHotelLeido); }
-
+            System.out.println("hola");
         else {
             // Si no existe, es la primera vez. Crea un hotel de cero
              System.out.println("Creando un nuevo hotel vacío...");
